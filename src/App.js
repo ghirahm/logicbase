@@ -1,24 +1,54 @@
-import logo from './logo.svg';
 import './App.css';
+
+import { createBrowserRouter, Route, RouterProvider, createRoutesFromElements } from 'react-router';
+
+/* Layout */
+import BasicLayout from './layouts/BasicLayout';
+
+/* Component */
+import BasicContent from './pages/BasicContent';
+import LoginContent from './pages/LoginContent';
+import RegisterContent from './pages/RegisterContent';
+import MainLayout from './layouts/MainLayout';
+import MainContent from './pages/MainContent';
+import ClassLayout from './layouts/ClassLayout';
+import ClassIntro from './pages/ClassIntro';
+import ClassOrientation from './pages/ClassOrientation';
+import ClassOrientationQuiz from './pages/ClassOrientationQuiz';
+import ClassOrganization from './pages/ClassOrganization';
+import ClassResearch from './pages/ClassResearch';
+import ClassPresentation from './pages/ClassPresentation';
+import ClassEvaluation from './pages/ClassEvaluation';
+import ClassOutro from './pages/ClassOutro';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route>
+      <Route path='/' element={<BasicLayout />}>
+        <Route index element={<BasicContent />} />
+        <Route path='login' element={<LoginContent />} />
+        <Route path='register' element={<RegisterContent />} />
+      </Route>
+      <Route path='/main' element={<MainLayout />}>
+        <Route index element={<MainContent />} />
+      </Route>
+      <Route path='/class' element={<ClassLayout />}>
+        <Route index element={<ClassIntro />} />
+        <Route path='orientation' element={<ClassOrientation />} />
+        <Route path='orientationQuiz' element={<ClassOrientationQuiz />} />
+        <Route path='organization' element={<ClassOrganization />} />
+        <Route path='research' element={<ClassResearch />} />
+        <Route path='presentation' element={<ClassPresentation />} />
+        <Route path='evaluation' element={<ClassEvaluation />} />
+        <Route path='endClass' element={<ClassOutro />} />
+      </Route>
+    </Route>
+  )
+)
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouterProvider router={router} />
   );
 }
 
