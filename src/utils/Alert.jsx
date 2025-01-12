@@ -15,7 +15,7 @@ const Alert = ({ isError, setIsError }) => {
     return (
         <section>
             {isError && <div className='relative'>
-                <div className='fixed inset-x-0 mx-auto top-[100px] w-10/12 rounded-lg bg-white border text-red-700 px-4 py-3 z-10' role='alert'>
+                <div className='fixed inset-x-0 mx-auto top-[160px] w-10/12 rounded-lg bg-white border text-red-700 px-4 py-3 z-10' role='alert'>
                     <span className='block sm:inline'>
                         {isError}
                     </span>
