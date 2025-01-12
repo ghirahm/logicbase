@@ -2,6 +2,8 @@ import React from 'react';
 
 import Logo from '../assets/logicBase.png';
 import { HashLink as Link} from 'react-router-hash-link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 const ClassHeader = () => {
   return (
@@ -16,8 +18,8 @@ const ClassHeader = () => {
             </ul>
             <ul className='flex w-fit h-full items-center gap-[20px] text-[16px] font-normal'>
                 <li>
-                    <Link smooth to='/main#help' className='relative w-fit flex items-center justify-center bg-[var(--color-primary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] overflow-hidden ease-in-out duration-300 hover:text-[var(--color-primary)] hover:-translate-y-1 before:absolute before:h-0 before:w-0 before:rounded-full before:bg-[var(--color-accent)] before:duration-500 before:ease-out hover:before:h-56 hover:before:w-56'>
-                        <p className='z-10'>Help</p>
+                    <Link smooth to='/main' className='relative w-fit flex items-center justify-center bg-[var(--color-primary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] overflow-hidden ease-in-out duration-300 hover:text-[var(--color-primary)] before:absolute before:h-0 before:w-0 before:rounded-full before:bg-[var(--color-accent)] before:duration-500 before:ease-out hover:before:h-56 hover:before:w-56'>
+                        <FontAwesomeIcon icon={faClose} className='z-10 hover:text-[var(--color-primary)]'></FontAwesomeIcon>
                     </Link>
                 </li>
             </ul>

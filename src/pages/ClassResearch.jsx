@@ -1,12 +1,30 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faStar, faCat, faDownload, faTents, faCirclePlay, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router'
 
+import { useUser } from '../context.jsx/UserContext'
+
+import ReactMarkdown from 'react-markdown';
+
 const ClassResearch = () => {
 
     const navigate = useNavigate();
+
+    const { courseTopic, setTopicSlug, isLoading, courseId, setIsLoading } = useUser();
+    
+     useEffect(() => {
+            setTopicSlug("research-guide-course-1-2");
+        }, []);
+    
+
+    const nextPage = () => {
+        setIsLoading(true);
+        navigate(`/class/${courseId}/presentation`)
+    }
+
+    console.log(courseTopic);
     
     return (
     <>
@@ -32,7 +50,13 @@ const ClassResearch = () => {
                         <div className='w-full h-fit grid grid-cols-2 gap-6'>
                             <div className='w-full h-full col-span-1 flex flex-col items-start gap-2'>
                                 <p className='text-sm font-bold'>Materi Pembelajaran</p>
-                                <p className='text-sm leading-6'>SQL queries are made up of components that work together to retrieve and manipulate data from a database. The structure of an SQL query is defined by several clauses that specify the query's purpose, scope, and output. Some components of an SQL.</p>
+                                <div className="text-sm leading-6">
+                                        {courseTopic?.content[0]?.learningMaterial ? (
+                                            <ReactMarkdown>{courseTopic.content[0].learningMaterial}</ReactMarkdown>
+                                        ) : (
+                                            <p>No learning material available</p>
+                                        )}
+                                    </div>
                             </div>
                             <div className='w-full h-full col-span-1 flex flex-col items-start gap-6 rounded-3xl'>
                                 <div className='w-full flex flex-col items-left justify-center gap-2 p-6 bg-[var(--color-non-primary)] rounded-3xl'>
@@ -74,7 +98,7 @@ const ClassResearch = () => {
                         <h3 className='text-[20px] text-left leading-none font-semibold'>Learning Video</h3>
                     </div>
                     <div className='w-full h-[480px] bg-[var(--color-non-primary)] rounded-3xl'>
-                        <iframe src='' title=' ' allowFullScreen/>
+                    <iframe src={courseTopic?.content[0].youtubeLink} className='w-full h-full' title='Youtube Video' allowFullScreen />
                     </div>
                 </div>
                 <div className='w-full h-fit flex items-center justify-between'>
@@ -82,7 +106,7 @@ const ClassResearch = () => {
                         <FontAwesomeIcon icon={faArrowRight} className='w-[12px] h-[12px] text-[var(--color-secondary)] rotate-180' />
                         <p className='font-normal transform ease-in-out duration-300 transition-all'>Back</p> 
                     </button>
-                    <button onClick={() => navigate('/class/presentation')} className='w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] group'>
+                    <button onClick={() => nextPage()} className='w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] group'>
                         <p className='font-normal transform ease-in-out duration-300 transition-all group-hover:mr-8 '>Step 4: Analisis dan Menyajikan Masalah</p>
                         <FontAwesomeIcon icon={faArrowRight} className='w-[12px] h-[12px] text-[var(--color-secondary)]' />
                     </button>

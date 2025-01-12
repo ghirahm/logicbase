@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import Avatar from '../assets/avatar.png';
 import Icon from '../assets/icon.png';
 import Character from '../assets/chara.png';
+import CharacterYellow from '../assets/charaYellow.png';
 import Corner from '../assets/corner.png';
 import CornerYellow from '../assets/corner-yellow.png';
 import Help from '../assets/help.png';
@@ -11,62 +12,17 @@ import HelpSound from '../assets/help.mp3';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faBarChart, faClock, faArrowRight, faBook, faChartSimple, faFire, faCamera, faMusic, faPhone } from '@fortawesome/free-solid-svg-icons'
 
-import { HashLink as Link } from 'react-router-hash-link'
+import { useUser } from '../context.jsx/UserContext';
 
-import axios from 'axios';
+import { HashLink as Link } from 'react-router-hash-link'
 
 const MainContent = () => {
 
+    const { username, courseList, fetchMain } = useUser();
+
     useEffect(() => {
-        reloadPage();
+        fetchMain();
     }, [])
-
-    const [username, setUsername] = useState("");
-    const [courseList, setCourseList] = useState([]);
-
-    const reloadPage = async () => {
-        // setLoading(true);
-        const token = localStorage.getItem("token");
-        await axios
-            .get(`${process.env.REACT_APP_API_URL}api/users/me`, {
-                headers: {
-                    "content-type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                setUsername(res.data.username);
-            })
-            .catch((err) => {
-                if (err) {
-                    console.log(err);
-                }
-            })
-            .finally(() => {
-                // setLoading(false);
-            });
-
-        await axios
-            .get(`${process.env.REACT_APP_API_URL}api/course-participants`, {
-                headers: {
-                    "content-type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                const sortedCourses = res.data.sort((a, b) => a.course.id - b.course.id);
-                setCourseList(sortedCourses);
-                console.log(res.data)
-            })
-            .catch((err) => {
-                if (err) {
-                    console.log(err);
-                }
-            })
-            .finally(() => {
-                // setLoading(false);
-            });
-    };
 
     const scrollOffset = (el) => {
         const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
@@ -168,13 +124,18 @@ const MainContent = () => {
                             {
                                 courseList &&
                                 courseList.map((i, index) => {
+
+                                    const startDate = new Date(i.course.courseDate);
+                                    const day = startDate.getDate(); 
+                                    const month = startDate.toLocaleString('en-US', { month: 'short' });
+
                                     return (
                                         <Link
-                                            to={`/course/${i.course.id}`} // Ganti dengan path yang sesuai
+                                            to={`/class/${i.course.id}/`}
                                             key={index}
                                             className='w-full h-auto flex flex-col justify-between gap-2 bg-[var(--color-primary)] text-[var(--color-secondary)] rounded-3xl p-12 cursor-pointer transition-all ease-in-out duration-300 hover:-translate-y-2'
                                         >
-                                            <div className='flex flex-row justify-between rounded-3xl'>
+                                            <div className='flex flex-row justify-between items-start rounded-3xl'>
                                                 <div className='w-full h-[160px] gap-6 flex flex-row justify-start items-start'>
                                                     <img src={Icon} alt='Course Icon' className='w-[20%]' />
                                                     <div className='w-[60%] space-y-4'>
@@ -184,9 +145,9 @@ const MainContent = () => {
                                                         <p className='text-sm'>{i.course.overview}</p>
                                                     </div>
                                                 </div>
-                                                <div className='w-[72px] h-[72px] flex flex-col items-center justify-center bg-[var(--color-accent)] rounded-xl'>
-                                                    <h2 className='text-[24px] text-left leading-none font-bold text-[var(--color-primary)]'>2</h2>
-                                                    <p className='text-sm text-[var(--color-primary)]'>Dec</p>
+                                                <div className='w-[72px] h-[72px] p-4 bg-[var(--color-accent)] text-center  rounded-xl'>
+                                                    <h2 className='text-[24px] leading-none font-bold text-[var(--color-primary)]'>{day}</h2>
+                                                    <p className='text-sm text-[var(--color-primary)]'>{month}</p>
                                                 </div>
                                             </div>
                                             <div className='w-full flex flex-row justify-between items-center'>
@@ -272,11 +233,11 @@ const MainContent = () => {
                             <button onClick={playSound} className='font-normal transform ease-in-out duration-300 transition-all flex flex-row items-center gap-4 p-4 bg-[var(--color-primary)] rounded-full hover:scale-90'>Play Sound <FontAwesomeIcon icon={faMusic} /></button>
                             <img className='absolute h-[50%] w-auto bottom-0 right-0' src={HelpYellow} alt='Character' />
                         </div>
-                        <div className='relative row-span-2 space-y-4 bg-[var(--color-accent)] rounded-3xl w-full overflow-hidden p-6'>
+                        <div className='relative row-span-2 space-y-4 bg-[var(--color-tertiary)] rounded-3xl w-full overflow-hidden p-6'>
                             <h2 className='text-[42px] text-left leading-none font-bold text-[var(--color-primary)] uppercase'>FAQ's</h2>
                             <p className='text-sm font-normal text-[var(--color-primary)] text-balance leading-7'>Frequently Asked Question</p>
                             <button className='font-normal transform ease-in-out duration-300 transition-all flex flex-row items-center gap-4 p-4 bg-[var(--color-primary)] rounded-full hover:scale-90'>Help Me!<FontAwesomeIcon icon={faArrowRight} /></button>
-                            <img className='absolute h-[50%] w-auto bottom-0 right-0' src={Character} alt='Character' />
+                            <img className='absolute h-[50%] w-auto bottom-0 right-0' src={CharacterYellow} alt='Character' />
                         </div>
                         <div className='relative row-span-2 space-y-4 bg-[var(--color-tertiary)] rounded-3xl w-full overflow-hidden p-6'>
                             <h2 className='text-[42px] text-left leading-none font-bold text-[var(--color-primary)] uppercase'>Teacher Contact</h2>

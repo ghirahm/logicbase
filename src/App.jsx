@@ -21,6 +21,8 @@ import ClassPresentation from './pages/ClassPresentation';
 import ClassEvaluation from './pages/ClassEvaluation';
 import ClassOutro from './pages/ClassOutro';
 
+import { UserProvider } from './context.jsx/UserContext';
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -32,7 +34,7 @@ const router = createBrowserRouter(
       <Route path='/main' element={<MainLayout />}>
         <Route index element={<MainContent />} />
       </Route>
-      <Route path='/class' element={<ClassLayout />}>
+      <Route path='/class/:id' element={<ClassLayout />}>
         <Route index element={<ClassIntro />} />
         <Route path='orientation' element={<ClassOrientation />} />
         <Route path='orientationQuiz' element={<ClassOrientationQuiz />} />
@@ -48,7 +50,9 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
   );
 }
 
