@@ -14,10 +14,9 @@ const BasicHeader = () => {
         window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' }); 
     }
     
-
     return (
     <header className='w-full'>
-        <nav className='w-full h-[100px] fixed top-0 flex justify-between items-center bg-[var(--color-tertiary)] text-[var(--color-primary)] px-20 z-20'>
+        <nav className='w-full h-[100px] fixed top-0 flex justify-between items-center bg-[var(--color-tertiary)] text-[var(--color-primary)] border-b-2 border-[var(--color-primary)] px-20 z-20'>
             <ul className='flex w-fit h-full items-center gap-[40px] text-[16px] font-normal'>
                 <Link smooth to='/#home' scroll={scrollOffset}>
                     <img src={Logo} alt='Logic Base Logo' className='w-auto h-[30px] cursor-pointer transition-all ease-in-out duration-300 hover:scale-110'/>

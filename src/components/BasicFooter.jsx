@@ -14,7 +14,7 @@ const BasicFooter = () => {
     
     return (
         <footer className='w-full'>
-            <div className="w-full h-[360px] flex items-center justify-center bg-[var(--color-tertiary)]">
+            <div className="w-full h-[360px] flex items-center justify-center bg-[var(--color-tertiary)] border-t-2 border-[var(--color-primary)]">
                 <div className="w-[80%] px-4 text-white flex flex-col">
                     <div className="flex flex-col">
                         <div className="flex mt-24 mb-12 flex-row items-center justify-between">
@@ -24,7 +24,7 @@ const BasicFooter = () => {
                             <Link smooth to='/#home' scroll={scrollOffset} className='cursor-pointer text-[var(--color-primary)] ease-in-out duration-300 hover:-translate-y-1'>About</Link>
                             <Link smooth to='/login' className='cursor-pointer text-[var(--color-primary)] ease-in-out duration-300 hover:-translate-y-1'>Course</Link>
                             <a href='https://wa.me/+6281818268644' target='_blank' rel='noopener noreferrer' className='cursor-pointer text-[var(--color-primary)] ease-in-out duration-300 hover:-translate-y-1'>Contact</a>
-                            <div class='flex flex-row space-x-8 items-center justify-between'>
+                            <div className='flex flex-row space-x-8 items-center justify-between'>
                                 <a href=' ' className=''>
                                     <svg width="6" height="12" viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M3.89782 12V6.53514H5.67481L5.93895 4.39547H3.89782V3.03259C3.89782 2.41516 4.06363 1.99243 4.91774 1.99243H6V0.0847928C5.47342 0.0262443 4.94412 -0.00202566 4.41453 0.000112795C2.84383 0.000112795 1.76542 0.994936 1.76542 2.82122V4.39147H0V6.53114H1.76928V12H3.89782Z" fill="white"/>
@@ -44,8 +44,8 @@ const BasicFooter = () => {
                                 </a>
                             </div>
                         </div>
-                        <hr class="border-[var(--color-primary)]"/>
-                        <p class="w-full text-center my-12 text-[var(--color-primary)]">Copyright © 2024 Nurmiyati Annisa Wolio</p>
+                        <hr className="border-[var(--color-primary)]"/>
+                        <p className="w-full text-center my-12 text-[var(--color-primary)]">Copyright © 2024 Nurmiyati Annisa Wolio</p>
                     </div>
                 </div>
             </div>

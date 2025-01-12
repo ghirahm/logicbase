@@ -48,7 +48,7 @@ const MainNavigation = () => {
                     </Link>
                 </li>
             </ul>
-            <ul className=''>
+            <ul>
                 <li>
                     <Link smooth to='/' className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 hover:bg-[var(--color-shadow)] group'>
                         <FontAwesomeIcon icon={faSignOut} className='w-[24px] h-[24px]'></FontAwesomeIcon>

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 
 /* Components */
-import BasicHeader from '../components/BasicHeader.js';
-import BasicFooter from '../components/BasicFooter.js';
+import BasicHeader from '../components/BasicHeader.jsx';
+import BasicFooter from '../components/BasicFooter.jsx';
 import { Outlet, useLocation } from 'react-router';
 
 const BasicLayout = () => {

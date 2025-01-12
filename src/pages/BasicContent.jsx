@@ -19,8 +19,8 @@ const BasicContent = () => {
                         <h1 className='text-[100px] text-left leading-tight font-bold text-[var(--color-primary)]'>Improve Your Skills Faster</h1>
                         <div className='flex flex-col gap-6'>
                             <p className='text-[16px] text-left font-normal text-[var(--color-primary)] text-balance'>Speed Up Logical Thinking Ability by Finding Unlimited Course That Matches Your Niche</p>
-                            <button onClick={() => navigate('/login')} className='w-fit h-auto flex items-center justify-center gap-2 border border-[var(--color-primary)] bg-[var(--color-tertiary)] text-[var(--color-primary)] rounded-full pt-[8px] pb-[10px] px-[20px]'>
-                                <p className='font-bold transform ease-in-out duration-300 transition-all hover:mr-8 '>Get Started</p>
+                            <button onClick={() => navigate('/login')} className='w-fit h-auto flex items-center justify-center gap-2 border border-[var(--color-primary)] bg-[var(--color-tertiary)] text-[var(--color-primary)] rounded-full pt-[8px] pb-[10px] px-[20px] group'>
+                                <p className='font-bold transform ease-in-out duration-300 transition-all group-hover:mr-8 '>Get Started</p>
                                 <FontAwesomeIcon icon={faArrowRight} className='w-[12px] h-[12px] text-[var(--color-primary)]' />
                             </button>
                         </div>
