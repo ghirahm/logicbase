@@ -6,14 +6,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBolt, faCirclePlay, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import Icon from '../assets/icon.png'
 import { useNavigate } from 'react-router'
+import { useParams } from 'react-router'
 
 const ClassOrientation = () => {
     const navigate = useNavigate();
 
-    const { courseTopic, setTopicSlug, isLoading, courseId, setIsLoading} = useUser();
+    const { slug, id } = useParams();
+
+    const { courseTopic, setTopicSlug, isLoading } = useUser();
 
     useEffect(() => {
-        setTopicSlug("pengantar-orientasi-permasalahan");
+        setTopicSlug(slug);
     }, []);
 
     if (isLoading) {
@@ -31,8 +34,11 @@ const ClassOrientation = () => {
     }
 
     const nextPage = () => {
-        setIsLoading(true);
-        navigate(`/class/${courseId}/orientationQuiz`)
+        navigate(`/class/${id}/orientationQuiz/${courseTopic?.nextTopic?.slug}`)
+    }
+
+    const prevPage = () => {
+        navigate(`/class/${id}`)
     }
 
     return (
@@ -49,26 +55,30 @@ const ClassOrientation = () => {
                                 <div className='w-[36px] h-[36px] bg-[var(--color-accent)] flex justify-center items-center rounded-xl text-[var(--color-primary)]'>
                                     <FontAwesomeIcon icon={faCirclePlay} className='ease-in-out transition-all duration-300 hover:rotate-45' />
                                 </div>
-                                <h3 className='text-[20px] text-left leading-none font-semibold'>{courseTopic.title}</h3>
+                                <h3 className='text-[20px] text-left leading-none font-semibold'>{courseTopic?.title}</h3>
                             </div>
                         </div>
                         <div className='w-full h-[480px] bg-[var(--color-non-primary)] rounded-3xl'>
-                            <iframe src={courseTopic.content[0].youtubeLink} className='w-full h-full' title='Youtube Video' allowFullScreen />
+                            <iframe src={courseTopic?.content[0]?.youtubeLink} className='w-full h-full' title='Youtube Video' allowFullScreen />
                         </div>
                         <div className='w-full h-fit grid grid-cols-2 gap-6'>
                             <div className='h-full col-span-1 flex items-center'>
-                                <p className='text-sm leading-6'>{courseTopic.content[0].description}</p>
+                                <p className='text-sm leading-6'>{courseTopic?.content[0]?.description}</p>
                             </div>
                             <div className='h-full col-span-1 flex flex-row items-center gap-6 bg-[var(--color-non-primary)] rounded-3xl py-6 px-12'>
                                 <img src={Icon} alt='' className='w-[20%]' />
                                 <div className='flex flex-col items-left justify-center gap-2'>
                                     <p className='text-sm font-bold'>Pertanyaan Pemantik</p>
-                                    <p className='text-sm leading-6'>{courseTopic.content[0].starterQuestion}</p>
+                                    <p className='text-sm leading-6'>{courseTopic?.content[0]?.starterQuestion}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className='w-full h-fit flex items-center justify-end'>
+                    <div className='w-full h-fit flex items-center justify-between'>
+                        <button onClick={() => prevPage()} className='w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] group'>
+                            <FontAwesomeIcon icon={faArrowRight} className='w-[12px] h-[12px] text-[var(--color-secondary)] rotate-180' />
+                            <p className='font-normal transform ease-in-out duration-300 transition-all group-hover:ml-8 '>Back</p>
+                        </button>
                         <button onClick={() => nextPage()} className='w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] group'>
                             <p className='font-normal transform ease-in-out duration-300 transition-all group-hover:mr-8 '>Start Quiz</p>
                             <FontAwesomeIcon icon={faArrowRight} className='w-[12px] h-[12px] text-[var(--color-secondary)]' />

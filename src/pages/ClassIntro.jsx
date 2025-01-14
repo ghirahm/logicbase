@@ -11,14 +11,22 @@ const ClassIntro = () => {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const { courseDetails, image, isLoading, courseId, setCourseId, setIsLoading } = useUser();
+    const { courseDetails, image, isLoading, courseId, setCourseId, setTopicSlug, topicSlug} = useUser();
 
     useEffect(() => {
-        if (id) {
-            setCourseId(id);
-        }
-    }, [id]);
+        setCourseId(id);
+    }, []);
+
+    useEffect(() => {
+        const topics = courseDetails?.attributes?.topics?.data;
+        const result = topics?.find(topic => topic.attributes?.order === 1);
+        setTopicSlug(result?.attributes?.slug);
+    }, [courseDetails])
     
+    const nextPage = () => {
+        navigate(`/class/${courseId}/orientation/${topicSlug}`);
+    }
+
     if (isLoading) {
         return (
             <main>
@@ -37,16 +45,12 @@ const ClassIntro = () => {
         return (
             <main>
                 <div className="text-center text-red-500">
-                    <p>Failed to Load Course details</p>
+                    <p>Failed to Load Course Details</p>
                 </div>
             </main>
         );
     }
 
-    const nextPage = () => {
-        setIsLoading(true);
-        navigate(`/class/${courseId}/orientation`)
-    }
 
     return (
         <main>
@@ -54,7 +58,7 @@ const ClassIntro = () => {
                 <div className="w-full h-full bg-[var(--color-accent)] rounded-3xl overflow-hidden">
                     <img
                         className="w-full h-auto hover:scale-110 transition-all duration-300 ease-in-out object-cover"
-                        src={image === "" ? `${process.env.REACT_APP_API_IMGURL}${courseDetails.attributes?.thumbnail.data.attributes?.url}` :  Character }
+                        src={image === "" ?  Character : `${process.env.REACT_APP_API_IMGURL}${image}` }
                         alt="Character"
                     />
                 </div>
@@ -62,7 +66,7 @@ const ClassIntro = () => {
                     <div className="w-full h-full flex flex-col gap-8">
                         <div className="w-full h-fit space-y-4">
                             <h3 className="w-fit text-[20px] text-center leading-none font-semibold uppercase px-6 py-2 border border-[var(--color-secondary)] rounded-full">
-                                Pertemuan {courseDetails.id}
+                                Pertemuan {courseDetails?.id}
                             </h3>
                             <h2 className="text-[48px] text-left leading-tight font-bold text-balance">
                                 {courseDetails.attributes?.title || 'No Title Available'}

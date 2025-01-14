@@ -30,6 +30,7 @@ export const UserProvider = ({ children }) => {
     }, [topicSlug, setTopicSlug]);
 
     const fetchMain = async () => {
+        setIsLoading(true);
         const token = localStorage.getItem("token");
         await axios
             .get(`${process.env.REACT_APP_API_URL}api/users/me`, {
@@ -84,9 +85,7 @@ export const UserProvider = ({ children }) => {
                 }
             );
             setCourseDetails(res.data.data);
-            if (courseDetails) {
-                setImage(courseDetails.attributes.thumbnail.data.attributes.url);
-            }
+            setImage(res.data.data.attributes.thumbnail.data.attributes.url);
         } catch (err) {
             console.error('Error fetching course details:', err);
         } finally {

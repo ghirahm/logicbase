@@ -15,10 +15,12 @@ import { faStar, faBarChart, faClock, faArrowRight, faBook, faChartSimple, faFir
 import { useUser } from '../context.jsx/UserContext';
 
 import { HashLink as Link } from 'react-router-hash-link'
+import { useNavigate } from 'react-router';
 
 const MainContent = () => {
+    const { username, courseList, fetchMain, isLoading, setCourseId } = useUser();
 
-    const { username, courseList, fetchMain } = useUser();
+    const navigate=useNavigate();
 
     useEffect(() => {
         fetchMain();
@@ -33,7 +35,26 @@ const MainContent = () => {
     const playSound = () => {
         const audio = new Audio(HelpSound);
         audio.play();
-      };
+    };
+
+    const handleClass = (id) => {
+        setCourseId(id);
+        navigate(`/class/${id}`);
+    }
+
+    if (isLoading) {
+        return (
+            <main>
+                <div className="flex flex-col items-center justify-center h-screen">
+                    <p className="ml-4 text-lg">Loading Course</p>
+                    <svg className='animate-spin h-20 w-20 text-[var(--color-secondary)]' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'>
+                        <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4'></circle>
+                        <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'></path>
+                    </svg>
+                </div>
+            </main>
+        );
+    }
 
     return (
         <>
@@ -126,12 +147,12 @@ const MainContent = () => {
                                 courseList.map((i, index) => {
 
                                     const startDate = new Date(i.course.courseDate);
-                                    const day = startDate.getDate(); 
+                                    const day = startDate.getDate();
                                     const month = startDate.toLocaleString('en-US', { month: 'short' });
 
                                     return (
-                                        <Link
-                                            to={`/class/${i.course.id}/`}
+                                        <div
+                                            onClick={() => handleClass(i.course.id)}
                                             key={index}
                                             className='w-full h-auto flex flex-col justify-between gap-2 bg-[var(--color-primary)] text-[var(--color-secondary)] rounded-3xl p-12 cursor-pointer transition-all ease-in-out duration-300 hover:-translate-y-2'
                                         >
@@ -142,7 +163,7 @@ const MainContent = () => {
                                                         <h3 className='text-[20px] text-left font-bold text-[var(--color-secondary)] leading-6 text-balance'>
                                                             {i.course.title}
                                                         </h3>
-                                                        <p className='text-sm'>{i.course.overview}</p>
+                                                        <p className='text-sm leading-7'>{i.course.overview}</p>
                                                     </div>
                                                 </div>
                                                 <div className='w-[72px] h-[72px] p-4 bg-[var(--color-accent)] text-center  rounded-xl'>
@@ -162,7 +183,7 @@ const MainContent = () => {
                                                     <FontAwesomeIcon icon={faArrowRight} />
                                                 </p>
                                             </div>
-                                        </Link>
+                                        </div>
                                     );
                                 })
                             }

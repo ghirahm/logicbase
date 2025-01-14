@@ -4,17 +4,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBolt, faCirclePlay, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router'
 import { useUser } from '../context.jsx/UserContext'
+import { useParams } from 'react-router'
 
 const ClassOrganization = () => {
     const navigate = useNavigate();
 
-    const { courseTopic, setTopicSlug, isLoading, courseId, setIsLoading } = useUser();
+    const { slug, id } = useParams();
+
+    const { courseTopic, setTopicSlug, isLoading } = useUser();
 
     useEffect(() => {
-        setTopicSlug("ikuti-intruksi-berikut-kelompok-course-1");
+        setTopicSlug(slug);
     }, []);
 
-    const trimmedData = courseTopic?.content[0].description.split('/r').map((item) => item.trim()).filter((item) => item.length > 0);
+    const nextPage = () => {
+        navigate(`/class/${id}/research/${courseTopic?.nextTopic?.slug}`)
+    }
+
+    const prevPage = () => {
+        navigate(`/class/${id}/orientationQuiz/${courseTopic?.prevTopic?.slug}`)
+    }
+
+    const trimmedData = courseTopic?.content[0]?.description?.split('/r').map((item) => item.trim()).filter((item) => item.length > 0);
 
 
     if (isLoading) {
@@ -29,11 +40,6 @@ const ClassOrganization = () => {
                 </div>
             </main>
         );
-    }
-
-    const nextPage = () => {
-        setIsLoading(true);
-        navigate(`/class/${courseId}/research`)
     }
 
     return (
@@ -54,11 +60,11 @@ const ClassOrganization = () => {
                             </div>
                         </div>
                         {
-                            trimmedData && trimmedData.map ((i, index) => {
-                                return(
-                        <div className='w-full h-[72px] flex items-center p-4 bg-[var(--color-non-primary)] rounded-3xl'>
-                            <p className='text-sm font-normal text-[var(--color-secondary)]'>{i}</p>
-                        </div>
+                            trimmedData && trimmedData.map((i, index) => {
+                                return (
+                                    <div className='w-full h-[72px] flex items-center p-4 bg-[var(--color-non-primary)] rounded-3xl'>
+                                        <p className='text-sm font-normal text-[var(--color-secondary)]'>{i}</p>
+                                    </div>
 
                                 )
                             })
@@ -69,7 +75,7 @@ const ClassOrganization = () => {
                         </div>
                     </div>
                     <div className='w-full h-fit flex items-center justify-between'>
-                        <button onClick={() => navigate('/class/orientationQuiz')} className='w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] opacity-80 hover:opacity-100'>
+                        <button onClick={() => prevPage()} className='w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] opacity-80 hover:opacity-100'>
                             <FontAwesomeIcon icon={faArrowRight} className='w-[12px] h-[12px] text-[var(--color-secondary)] rotate-180' />
                             <p className='font-normal transform ease-in-out duration-300 transition-all '>Back</p>
                         </button>

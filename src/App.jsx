@@ -36,12 +36,12 @@ const router = createBrowserRouter(
       </Route>
       <Route path='/class/:id' element={<ClassLayout />}>
         <Route index element={<ClassIntro />} />
-        <Route path='orientation' element={<ClassOrientation />} />
-        <Route path='orientationQuiz' element={<ClassOrientationQuiz />} />
-        <Route path='organization' element={<ClassOrganization />} />
-        <Route path='research' element={<ClassResearch />} />
-        <Route path='presentation' element={<ClassPresentation />} />
-        <Route path='evaluation' element={<ClassEvaluation />} />
+        <Route path='orientation/:slug' element={<ClassOrientation />} />
+        <Route path='orientationQuiz/:slug' element={<ClassOrientationQuiz />} />
+        <Route path='organization/:slug' element={<ClassOrganization />} />
+        <Route path='research/:slug' element={<ClassResearch />} />
+        <Route path='presentation/:slug' element={<ClassPresentation />} />
+        <Route path='evaluation/:slug' element={<ClassEvaluation />} />
         <Route path='endClass' element={<ClassOutro />} />
       </Route>
     </Route>
