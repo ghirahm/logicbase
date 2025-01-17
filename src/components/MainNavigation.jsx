@@ -5,14 +5,26 @@ import { faHome, faPaperPlane, faBook, faCircleQuestion, faSignOut } from '@fort
 import { HashLink as Link } from 'react-router-hash-link';
 
 import Logo from '../assets/logicBase.png'
+import { useNavigate } from 'react-router';
+import { useAuth } from '../context.jsx/AuthContext';
 
 const MainNavigation = () => {
+
+    const {setIsLogin} = useAuth();
+
+    const navigate = useNavigate();
 
     const scrollOffset = (el) => {
         const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
         const yOffset = -100; 
         window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' }); 
     }
+
+    const handleSignOut = () => {
+        localStorage.removeItem('token');
+        setIsLogin(false);
+        navigate('/login');
+    };
 
     return (
     <aside className='fixed top-0 left-6 w-fit h-screen flex justify-start items-center transition-transform translate-x-0'>
@@ -50,10 +62,10 @@ const MainNavigation = () => {
             </ul>
             <ul>
                 <li>
-                    <Link smooth to='/' className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 hover:bg-[var(--color-shadow)] group'>
+                    <button onClick={() => handleSignOut()} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 hover:bg-[var(--color-shadow)] group'>
                         <FontAwesomeIcon icon={faSignOut} className='w-[24px] h-[24px]'></FontAwesomeIcon>
                         <p className='hidden text-xs ease-in-out duration-300 group-hover:block'>Sign Out</p>
-                    </Link>
+                    </button>
                 </li>
             </ul>
         </div>

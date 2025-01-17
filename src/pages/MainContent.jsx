@@ -42,6 +42,8 @@ const MainContent = () => {
         navigate(`/class/${id}`);
     }
 
+    console.log(courseList)
+
     if (isLoading) {
         return (
             <main>
@@ -149,6 +151,7 @@ const MainContent = () => {
                                     const startDate = new Date(i.course.courseDate);
                                     const day = startDate.getDate();
                                     const month = startDate.toLocaleString('en-US', { month: 'short' });
+                                    const percentage = i.progress/100;
 
                                     return (
                                         <div
@@ -175,7 +178,7 @@ const MainContent = () => {
                                                 <div className='w-[80%] h-4 bg-[var(--color-non-primary)] rounded-full overflow-hidden'>
                                                     <div
                                                         className="bg-[var(--color-accent)] h-full rounded-full"
-                                                        style={{ width: "30%" }}
+                                                        style={{ width: `${percentage * 100}%`}}
                                                     ></div>
                                                 </div>
                                                 <p className='text-sm flex flex-row items-center gap-2 hover:font-bold'>

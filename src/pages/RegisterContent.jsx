@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
 import Logo from '../assets/logicBase.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,52 +6,25 @@ import { faKey, faMailBulk, faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { HashLink as Link } from 'react-router-hash-link';
 import { useNavigate } from 'react-router';
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
 
 import Alert from '../utils/Alert';
 import WelcomeBanner from '../assets/banner-welcome.jpg';
+import { useAuth } from '../context.jsx/AuthContext';
 
 const RegisterContent = () => {
 
+    const { isError, setIsError, isLoading, setUsername, setEmail, setPassword, handleSubmit, onSubmitRegister, isRegister, setIsRegister } = useAuth();
     const navigate = useNavigate();
 
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    useEffect(() => {
+        if(isRegister === true){
+            setIsRegister(false)
+            navigateLogin();
+        }
+    }, [isRegister])
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
-
-    const { handleSubmit } = useForm();
-
-    const onSubmit = async () => {
-
-        setIsLoading(true);
-
-        const form = new FormData();
-        form.append('username', username);
-        form.append('email', email);
-        form.append('password', password);
-
-        const value = Object.fromEntries(form.entries());
-
-        await axios
-            .post(`${process.env.REACT_APP_API_URL}api/auth/local/register`, value,
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-            .then((response) => {
-                navigate('/login');
-            })
-            .catch((error) => {
-                setIsError('Register Invalid');
-            })
-            .finally(() => {
-                setIsLoading(false);
-            })
+    const navigateLogin = () => {
+        navigate('/login');
     }
 
     return (
@@ -65,7 +38,7 @@ const RegisterContent = () => {
                     <img src={Logo} alt='Logic Base Logo' className='mx-auto h-[72px] w-auto cursor-pointer transition-all ease-in-out duration-300 hover:scale-110' />
                 </Link>
                 <div className='w-full'>
-                    <form className='space-y-4' onSubmit={handleSubmit(onSubmit)}>
+                    <form className='space-y-4' onSubmit={handleSubmit(onSubmitRegister)}>
                         <label htmlFor='username' className='flex flex-row items-center gap-2 text-[var(--color-primary)]'>
                             <FontAwesomeIcon icon={faUser} className='w-[12px] h-[12px]' />
                             <p className='font-bold'>Full Name</p>

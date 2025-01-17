@@ -22,6 +22,7 @@ import ClassEvaluation from './pages/ClassEvaluation';
 import ClassOutro from './pages/ClassOutro';
 
 import { UserProvider } from './context.jsx/UserContext';
+import { AuthProvider } from './context.jsx/AuthContext';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,9 +51,11 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <UserProvider>
-      <RouterProvider router={router} />
-    </UserProvider>
+    <AuthProvider>
+      <UserProvider>
+        <RouterProvider router={router} />
+      </UserProvider>
+    </AuthProvider>
   );
 }
 

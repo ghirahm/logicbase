@@ -38,4 +38,4 @@ const ClassOutro = () => {
     )
 }
 
-export default ClassOutro
+export default ClassOutro;

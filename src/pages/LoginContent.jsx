@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Alert from '../utils/Alert';
 
@@ -11,48 +11,24 @@ import { useNavigate } from 'react-router';
 import { HashLink as Link } from 'react-router-hash-link';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../context.jsx/AuthContext';
 
 const LoginContent = () => {
 
     const navigate = useNavigate();
 
-    const [identifier, setIdentifier] = useState('');
-    const [password, setPassword] = useState('');
+    const { isError, setIsError, setIdentifier, setPassword, handleSubmit, onSubmitLogin, isLoading, isLogin} = useAuth();
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
 
-    const { handleSubmit } = useForm();
+    useEffect (() => {
+        if(isLogin === true){
 
-    const onSubmit = async () => {
-        setIsLoading(true);
+            navigateMain()
+        }
+    }, [isLogin])
 
-        const form = new FormData();
-
-        form.append('identifier', identifier);
-        form.append('password', password);
-
-        const value = Object.fromEntries(form.entries());
-
-        await axios
-            .post(`${process.env.REACT_APP_API_URL}api/auth/local`, value,
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-            .then((response) => {
-                localStorage.setItem('token', response.data.jwt);
-                setIsLoading(false);
-
-                navigate('/main');
-            })
-            .catch((error) => {
-                setIsError('Username or Email or Password Invalid');
-            })
-            .finally(() => {
-                setIsLoading(false);
-            })
+    const navigateMain = () => {
+        navigate('/main');
     }
 
     return (
@@ -66,7 +42,7 @@ const LoginContent = () => {
                     <img src={Logo} alt='Logic Base Logo' className='mx-auto h-[72px] w-auto cursor-pointer transition-all ease-in-out duration-300 hover:scale-110' />
                 </Link>
                 <div className='w-full'>
-                    <form className='space-y-4' onSubmit={handleSubmit(onSubmit)}>
+                    <form className='space-y-4' onSubmit={handleSubmit(onSubmitLogin)}>
                         <label htmlFor='identifier' className='flex flex-row items-center gap-2 text-[var(--color-primary)]'>
                             <FontAwesomeIcon icon={faMailBulk} className='w-[12px] h-[12px]' />
                             <p className='font-bold'>Email Address or Username</p>

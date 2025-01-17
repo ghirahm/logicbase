@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faBolt, faRocket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router';
@@ -29,7 +29,7 @@ const ClassIntro = () => {
 
     if (isLoading) {
         return (
-            <main>
+            <section>
                 <div className="flex flex-col items-center justify-center h-screen">
                     <p className="ml-4 text-lg">Loading Course</p>
                     <svg className='animate-spin h-20 w-20 text-[var(--color-secondary)]' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'>
@@ -37,20 +37,19 @@ const ClassIntro = () => {
                         <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'></path>
                     </svg>
                 </div>
-            </main>
+            </section>
         );
     }
 
     if (!courseDetails) {
         return (
-            <main>
+            <section>
                 <div className="text-center text-red-500">
                     <p>Failed to Load Course Details</p>
                 </div>
-            </main>
+            </section>
         );
     }
-
 
     return (
         <main>
@@ -69,7 +68,7 @@ const ClassIntro = () => {
                                 Pertemuan {courseDetails?.id}
                             </h3>
                             <h2 className="text-[48px] text-left leading-tight font-bold text-balance">
-                                {courseDetails.attributes?.title || 'No Title Available'}
+                                {courseDetails?.attributes?.title || 'No Title Available'}
                             </h2>
                         </div>
                         <div className="w-full h-fit space-y-4">
@@ -83,36 +82,27 @@ const ClassIntro = () => {
                                 </h3>
                             </div>
                             <p className="text-sm leading-6">
-                                {courseDetails.attributes?.overview || 'No Overview Available'}
+                                {courseDetails?.attributes?.overview || 'No Overview Available'}
                             </p>
                         </div>
                         <div className="w-full h-fit space-y-4">
                             <div className="flex flex-row items-center justify-start gap-4">
-                                <FontAwesomeIcon
-                                    icon={faRocket}
-                                    className="ease-in-out transition-all duration-300 hover:rotate-45"
-                                />
+                                <FontAwesomeIcon icon={faRocket} className="ease-in-out transition-all duration-300 hover:rotate-45" />
                                 <h3 className="text-[20px] text-left leading-none font-semibold">
                                     Tujuan Pembelajaran
                                 </h3>
                             </div>
                             <p className="text-sm leading-6">
-                                {courseDetails.attributes?.objective || 'No Objective Available'}
+                                {courseDetails?.attributes?.objective || 'No Objective Available'}
                             </p>
                         </div>
                     </div>
                     <div className="w-full h-fit">
-                        <button
-                            onClick={() => nextPage()}
-                            className="w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] group"
-                        >
+                        <button onClick={() => nextPage()} className="w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] group" >
                             <p className="font-normal transform ease-in-out duration-300 transition-all group-hover:mr-8">
                                 Mulai Belajar
                             </p>
-                            <FontAwesomeIcon
-                                icon={faArrowRight}
-                                className="w-[12px] h-[12px] text-[var(--color-secondary)]"
-                            />
+                            <FontAwesomeIcon icon={faArrowRight} className="w-[12px] h-[12px] text-[var(--color-secondary)]"/>
                         </button>
                     </div>
                 </div>

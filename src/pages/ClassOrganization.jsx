@@ -1,44 +1,48 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBolt, faCirclePlay, faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { useNavigate } from 'react-router'
-import { useUser } from '../context.jsx/UserContext'
-import { useParams } from 'react-router'
+// USER CONTEXT
+import { useUser } from '../context.jsx/UserContext';
+
+// ASSETS
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBolt, faCirclePlay, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import BasicLoading from '../components/BasicLoading';
 
 const ClassOrganization = () => {
-    const navigate = useNavigate();
-
+    // Parameters Page
     const { slug, id } = useParams();
 
-    const { courseTopic, setTopicSlug, isLoading } = useUser();
+    // Navigation
+    const navigate = useNavigate();
 
+    // User Context
+    const { courseTopic, setTopicSlug, isLoading, setProcessedTopics, handleProgressNonQuiz } = useUser();
+
+    // Effect to Trigger Course Topic
     useEffect(() => {
         setTopicSlug(slug);
     }, []);
 
-    const nextPage = () => {
-        navigate(`/class/${id}/research/${courseTopic?.nextTopic?.slug}`)
-    }
+    // Function to Handle Topic Already Processed
+    useEffect(() => {
+        setProcessedTopics((prev) => new Set(prev).add(courseTopic?.id));
+    }, [courseTopic]);
 
+    //Function Route Page
+    const nextPage = () => {
+        handleProgressNonQuiz(courseTopic?.id);
+        navigate(`/class/${id}/research/${courseTopic?.nextTopic?.slug}`);
+    }
     const prevPage = () => {
-        navigate(`/class/${id}/orientationQuiz/${courseTopic?.prevTopic?.slug}`)
+        navigate(`/class/${id}/orientationQuiz/${courseTopic?.prevTopic?.slug}`);
     }
 
     const trimmedData = courseTopic?.content[0]?.description?.split('/r').map((item) => item.trim()).filter((item) => item.length > 0);
 
-
     if (isLoading) {
         return (
-            <main>
-                <div className="flex flex-col items-center justify-center h-screen">
-                    <p className="ml-4 text-lg">Loading Course</p>
-                    <svg className='animate-spin h-20 w-20 text-[var(--color-secondary)]' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'>
-                        <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4'></circle>
-                        <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'></path>
-                    </svg>
-                </div>
-            </main>
+            <BasicLoading loadingNotes="Loading Course" />
         );
     }
 
@@ -62,7 +66,7 @@ const ClassOrganization = () => {
                         {
                             trimmedData && trimmedData.map((i, index) => {
                                 return (
-                                    <div className='w-full h-[72px] flex items-center p-4 bg-[var(--color-non-primary)] rounded-3xl'>
+                                    <div key={index} className='w-full h-[72px] flex items-center p-4 bg-[var(--color-non-primary)] rounded-3xl'>
                                         <p className='text-sm font-normal text-[var(--color-secondary)]'>{i}</p>
                                     </div>
 
