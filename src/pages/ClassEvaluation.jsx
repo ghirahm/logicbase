@@ -6,6 +6,7 @@ import { useUser } from '../context.jsx/UserContext';
 
 //COMPONENTS
 import BasicLoading from '../components/BasicLoading';
+import Alert from '../utils/Alert';
 
 //ASSET
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,6 +33,8 @@ const ClassEvaluation = () => {
     const [scoreDescription, setScoreDescription] = useState("");
     const [showScore, setShowScore] = useState(false);
 
+    const [isError, setIsError] = useState(false);
+
     // Effect to Trigger Course Topic
     useEffect(() => {
         setTopicSlug(slug);
@@ -44,25 +47,25 @@ const ClassEvaluation = () => {
         }
         if (courseTopic && courseTopic.topicActivity?.value) {
             setScore(parseInt(courseTopic.topicActivity.value) || 0);
-            if (courseTopic.topicActivity.value >= 0 && courseTopic.topicActivity.value < 50) {
-                setScoreDescription(`Low performance ${username}. Keep practicing!`);
-            } else if (courseTopic.topicActivity.value >= 50 && courseTopic.topicActivity.value < 70) {
-                setScoreDescription(`Moderate performance ${username}. You're getting there!`);
-            } else if (courseTopic.topicActivity.value >= 70 && courseTopic.topicActivity.value <= 100) {
-                setScoreDescription(`Excellent performance. Great job ${username}!`);
+            if (courseTopic.topicActivity.value >= 0 && courseTopic.topicActivity.value <= 40) {
+                setScoreDescription(`Sayang sekali, ${username}, nilaimu masih dibawah rata-rata. Terus belajar dan tingkatkan!`);
+            } else if (courseTopic.topicActivity.value > 40 && courseTopic.topicActivity.value <= 60) {
+                setScoreDescription(`Usaha yang baik, ${username}! Masih ada ruang untuk berkembang!`);
+            } else if (courseTopic.topicActivity.value > 60 && courseTopic.topicActivity.value <= 80) {
+                setScoreDescription(`Kerja bagus, ${username}! Hampir sempurna!`);
+            } else if (courseTopic.topicActivity.value > 80 && courseTopic.topicActivity.value <= 100) {
+                setScoreDescription(`Luar biasa! Nilai sempurna, selamat ${username}!`);
             }
             setShowScore(true);
         }
     }, [courseTopic]);
 
-    console.log(courseTopic)
-
     // Function Route Page
     const nextPage = () => {
-        navigate(`/class/${id}/endClass`)
+        navigate(`/class/${id}/endClass`);
     }
     const prevPage = () => {
-        navigate(`/class/${id}/orientation/${courseTopic?.prevTopic?.slug}`)
+        navigate(`/class/${id}/presentation/${courseTopic?.prevTopic?.slug}`);
     }
 
     // Function Handle Quiz Answer Select
@@ -75,6 +78,13 @@ const ClassEvaluation = () => {
 
     // Function Handle Quiz Submit
     const handleSubmit = () => {
+        const unansweredQuestions = question.filter((q) => !answers[q.id]);
+
+        if (unansweredQuestions.length > 0) {
+            setIsError('Please, Answer All Question First!')
+            return;
+        }
+
         postProgressQuiz(courseTopic?.id, answers);
         setShowScore(true);
         setAnswers({});
@@ -90,6 +100,9 @@ const ClassEvaluation = () => {
 
     return (
         <main>
+            {
+                isError && <Alert isError={isError} setIsError={setIsError} />
+            }
             <section className='w-full h-fit flex flex-col gap-6 pt-[120px] p-6'>
                 <div className='w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl p-6 gap-12'>
                     <div className='w-full h-full flex flex-col gap-8'>
@@ -164,8 +177,8 @@ const ClassEvaluation = () => {
                                         const option = q.terms;
 
                                         return (
-                                            <section className='space-y-4'>
-                                                <div key={index} className='w-full h-fit flex flex-row justify-between items-center p-6 border border-[var(--color-secondary)] rounded-full'>
+                                            <section key={index} className='space-y-4'>
+                                                <div className='w-full h-fit flex flex-row justify-between items-center p-6 border border-[var(--color-secondary)] rounded-full'>
                                                     <div className='flex flex-row items-center justify-start gap-4'>
                                                         <div className='w-[36px] h-[36px] bg-[var(--color-accent)] flex justify-center items-center rounded-xl text-[var(--color-primary)]'>
                                                             <FontAwesomeIcon icon={faCirclePlay} className='ease-in-out transition-all duration-300 hover:rotate-45' />

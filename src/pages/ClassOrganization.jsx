@@ -17,21 +17,16 @@ const ClassOrganization = () => {
     const navigate = useNavigate();
 
     // User Context
-    const { courseTopic, setTopicSlug, isLoading, setProcessedTopics, handleProgressNonQuiz } = useUser();
+    const { courseTopic, setTopicSlug, isLoading, postProgressNonQuiz } = useUser();
 
     // Effect to Trigger Course Topic
     useEffect(() => {
         setTopicSlug(slug);
     }, []);
 
-    // Function to Handle Topic Already Processed
-    useEffect(() => {
-        setProcessedTopics((prev) => new Set(prev).add(courseTopic?.id));
-    }, [courseTopic]);
-
     //Function Route Page
     const nextPage = () => {
-        handleProgressNonQuiz(courseTopic?.id);
+        postProgressNonQuiz(courseTopic?.id);
         navigate(`/class/${id}/research/${courseTopic?.nextTopic?.slug}`);
     }
     const prevPage = () => {
@@ -73,10 +68,6 @@ const ClassOrganization = () => {
                                 )
                             })
                         }
-                        <div className='space-y-2'>
-                            <label for="group_number">Nomor Kelompok:</label><br></br>
-                            <input type="text" id="group_number" name="group_number" className='bg-[var(--color-primary)] border border-[var(--color-secondary)] text-[var(--color-secondary)] text-sm rounded-lg focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)] block w-full p-2.5' /><br></br>
-                        </div>
                     </div>
                     <div className='w-full h-fit flex items-center justify-between'>
                         <button onClick={() => prevPage()} className='w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] opacity-80 hover:opacity-100'>

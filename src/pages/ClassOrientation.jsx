@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBolt, faCirclePlay, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Icon from '../assets/icon.png';
 import BasicLoading from '../components/BasicLoading';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const ClassOrientation = () => {
     // Parameters Page
@@ -18,21 +20,16 @@ const ClassOrientation = () => {
     const navigate = useNavigate();
 
     // User Context
-    const { courseTopic, setTopicSlug, isLoading, setProcessedTopics, handleProgressNonQuiz } = useUser();
+    const { courseTopic, setTopicSlug, isLoading, postProgressNonQuiz } = useUser();
 
     // Effect to Trigger Course Topic
     useEffect(() => {
         setTopicSlug(slug);
     }, []);
 
-    // Function to Handle Topic Already Processed
-    useEffect(() => {
-        setProcessedTopics((prev) => new Set(prev).add(courseTopic?.id));
-    }, [courseTopic]);
-
     // Function Route Page
     const nextPage = () => {
-        handleProgressNonQuiz(courseTopic?.id);
+        postProgressNonQuiz(courseTopic?.id);
         navigate(`/class/${id}/orientationQuiz/${courseTopic?.nextTopic?.slug}`);
     }
     const prevPage = () => {
@@ -61,14 +58,16 @@ const ClassOrientation = () => {
                                 <h3 className='text-[20px] text-left leading-none font-semibold'>{courseTopic?.title}</h3>
                             </div>
                         </div>
-                        <div className='w-full h-[480px] bg-[var(--color-non-primary)] rounded-3xl'>
+                        <div className='w-full h-[480px] bg-[var(--color-non-primary)] rounded-3xl overflow-hidden'>
                             <iframe src={courseTopic?.content[0]?.youtubeLink} className='w-full h-full' title='Youtube Video' allowFullScreen />
                         </div>
-                        <div className='w-full h-fit grid grid-cols-2 gap-6'>
+                        <div className='w-full h-fit grid grid-cols-2 gap-10'>
                             <div className='h-full col-span-1 flex items-center'>
-                                <p className='text-sm leading-6'>{courseTopic?.content[0]?.description}</p>
+                                <div className='text-sm leading-6 markdown'>
+                                    <Markdown className='leading-7 space-y-4 text-justify' remarkPlugins={[remarkGfm]}>{courseTopic?.content[0]?.description}</Markdown>
+                                </div>
                             </div>
-                            <div className='h-full col-span-1 flex flex-row items-center gap-6 bg-[var(--color-non-primary)] rounded-3xl py-6 px-12'>
+                            <div className='h-fit col-span-1 flex flex-row items-start gap-6 bg-[var(--color-non-primary)] rounded-3xl py-6 px-12'>
                                 <img src={Icon} alt='' className='w-[20%]' />
                                 <div className='flex flex-col items-left justify-center gap-2'>
                                     <p className='text-sm font-bold'>Pertanyaan Pemantik</p>

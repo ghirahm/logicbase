@@ -27,7 +27,8 @@ export const UserProvider = ({ children }) => {
     //Class Content
     const [topicSlug, setTopicSlug] = useState(null);
     const [courseTopic, setCourseTopic] = useState(null);
-    const [processedTopics, setProcessedTopics] = useState(new Set());
+
+    const [completed, setCompleted] = useState([]);
 
     /*RENDER PAGE*/
     //Render Username
@@ -48,7 +49,7 @@ export const UserProvider = ({ children }) => {
             fetchCourseTopics();
         }
     }, [topicSlug, setTopicSlug]);
-
+    
     /*FUNCTION*/
     //Fetch Main Content
     const fetchMain = async () => {
@@ -139,25 +140,17 @@ export const UserProvider = ({ children }) => {
         }
     };
 
-    //Function for Progress Non Quiz
-    const handleProgressNonQuiz = (topicId) => {
-        if (!processedTopics.has(topicId)) {
-            postProgressNonQuiz(topicId);
-        }
-    }
-
     //Post Progress Non Quiz Type Content
     const postProgressNonQuiz = async (topicId) => {
 
         setIsLoading(true);
         const token = localStorage.getItem("token");
-
+        
         const form = new FormData();
         form.append('topic', topicId);
 
 
         const value = Object.fromEntries(form.entries());
-        console.log(value)
         await axios
             .post(`${process.env.REACT_APP_API_URL}api/topic-activities`, value,
                 {
@@ -174,14 +167,6 @@ export const UserProvider = ({ children }) => {
             .finally(() => {
                 setIsLoading(false);
             })
-    }
-
-
-    //Function for Progress Quiz
-    const handleProgressQuiz = (topicId) => {
-        if (!processedTopics.has(topicId)) {
-            postProgressQuiz(topicId);
-        }
     }
 
     //Post Progress Quiz Type Content
@@ -219,7 +204,7 @@ export const UserProvider = ({ children }) => {
     }
 
     return (
-        <UserContext.Provider value={{ username, fetchMain, fetchCourseDetails, courseList, courseDetails, courseId, setCourseId, isLoading, setIsLoading, topicSlug, setTopicSlug, courseTopic, image, postProgressNonQuiz, postProgressQuiz, processedTopics, setProcessedTopics, handleProgressNonQuiz, handleProgressQuiz }}>
+        <UserContext.Provider value={{ username, fetchMain, fetchCourseDetails, courseList, courseDetails, courseId, setCourseId, isLoading, setIsLoading, topicSlug, setTopicSlug, courseTopic, image, postProgressNonQuiz, postProgressQuiz }}>
             {children}
         </UserContext.Provider>
     );

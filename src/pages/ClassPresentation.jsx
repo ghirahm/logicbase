@@ -17,25 +17,20 @@ const ClassPresentation = () => {
     const navigate = useNavigate();
 
     // User Context
-    const { courseTopic, setTopicSlug, isLoading, setProcessedTopics, handleProgressNonQuiz } = useUser();
+    const { courseTopic, setTopicSlug, isLoading, postProgressNonQuiz } = useUser();
 
     // Effect to Trigger Course Topic
     useEffect(() => {
         setTopicSlug(slug);
     }, []);
 
-    // Function to Handle Topic Already Processed
-    useEffect(() => {
-        setProcessedTopics((prev) => new Set(prev).add(courseTopic?.id));
-    }, [courseTopic]);
-
     const nextPage = () => {
-        handleProgressNonQuiz(courseTopic?.id);
-        navigate(`/class/${id}/evaluation/${courseTopic?.nextTopic?.slug}`)
+        postProgressNonQuiz(courseTopic?.id);
+        navigate(`/class/${id}/evaluation/${courseTopic?.nextTopic?.slug}`);
     }
 
     const prevPage = () => {
-        navigate(`/class/${id}/research/${courseTopic?.nextTopic?.slug}`)
+        navigate(`/class/${id}/research/${courseTopic?.prevTopic?.slug}`);
     }
 
     if (isLoading) {

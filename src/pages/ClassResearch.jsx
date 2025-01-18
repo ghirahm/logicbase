@@ -9,7 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBook, faStar, faCat, faDownload, faTents, faCirclePlay, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import BasicLoading from '../components/BasicLoading';
 
-import ReactMarkdown from 'react-markdown';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const ClassResearch = () => {
     // Parameters Page
@@ -19,21 +20,16 @@ const ClassResearch = () => {
     const navigate = useNavigate();
 
     // User Context
-    const { courseTopic, setTopicSlug, isLoading, setProcessedTopics, handleProgressNonQuiz } = useUser();
+    const { courseTopic, setTopicSlug, isLoading, postProgressNonQuiz } = useUser();
 
     // Effect to Trigger Course Topic
     useEffect(() => {
         setTopicSlug(slug);
     }, []);
 
-    // Function to Handle Topic Already Processed
-    useEffect(() => {
-        setProcessedTopics((prev) => new Set(prev).add(courseTopic?.id));
-    }, [courseTopic]);
-
     // Function 
     const nextPage = () => {
-        handleProgressNonQuiz(courseTopic?.id);
+        postProgressNonQuiz(courseTopic?.id);
         navigate(`/class/${id}/presentation/${courseTopic?.nextTopic?.slug}`)
     }
 
@@ -61,19 +57,19 @@ const ClassResearch = () => {
                                 <div className='w-[36px] h-[36px] bg-[var(--color-accent)] flex justify-center items-center rounded-xl text-[var(--color-primary)]'>
                                     <FontAwesomeIcon icon={faBook} className='ease-in-out transition-all duration-300 hover:rotate-45' />
                                 </div>
-                                <h3 className='text-[20px] text-left leading-none font-semibold'>Structure Query</h3>
+                                <h3 className='text-[20px] text-left leading-none font-semibold'>{courseTopic?.title}</h3>
                             </div>
                         </div>
                         <div className='w-full h-[360px] bg-[var(--color-non-primary)] rounded-3xl'>
                             {/* <img src=' ' alt=' '/> */}
                         </div>
                         <div className='w-full h-fit rounded-3xl'>
-                            <div className='w-full h-fit grid grid-cols-2 gap-6'>
-                                <div className='w-full h-full col-span-1 flex flex-col items-start gap-2'>
+                            <div className='w-full h-fit grid grid-cols-3 gap-6'>
+                                <div className='w-full h-full col-span-2 flex flex-col items-start gap-2'>
                                     <p className='text-sm font-bold'>Materi Pembelajaran</p>
-                                    <div className="text-sm leading-6">
+                                    <div className="text-sm leading-6 markdown">
                                         {courseTopic?.content[0]?.learningMaterial ? (
-                                            <ReactMarkdown>{courseTopic.content[0].learningMaterial}</ReactMarkdown>
+                                            <Markdown className='leading-7 space-y-6 text-justify' remarkPlugins={[remarkGfm]}>{courseTopic?.content[0].learningMaterial}</Markdown>
                                         ) : (
                                             <p>No learning material available</p>
                                         )}

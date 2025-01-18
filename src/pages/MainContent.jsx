@@ -42,8 +42,6 @@ const MainContent = () => {
         navigate(`/class/${id}`);
     }
 
-    console.log(courseList)
-
     if (isLoading) {
         return (
             <main>
