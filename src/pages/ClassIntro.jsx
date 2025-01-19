@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faBolt, faRocket } from '@fortawesome/free-solid-svg-icons';
 import Character from '../assets/chara.png';
 import BasicLoading from '../components/BasicLoading';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const ClassIntro = () => {
     // Parameters
@@ -18,7 +20,7 @@ const ClassIntro = () => {
     const navigate = useNavigate();
 
     // User Context
-    const { courseDetails, image, isLoading, courseId, setCourseId, setTopicSlug, topicSlug} = useUser();
+    const { courseDetails, image, isLoading, courseId, setCourseId, setTopicSlug, topicSlug } = useUser();
 
     // Use Effect Trigger Fetch Course Details
     useEffect(() => {
@@ -31,7 +33,7 @@ const ClassIntro = () => {
         const result = topics?.find(topic => topic.attributes?.order === 1);
         setTopicSlug(result?.attributes?.slug);
     }, [courseDetails])
-    
+
     //Function Next Page
     const nextPage = () => {
         navigate(`/class/${courseId}/orientation/${topicSlug}`);
@@ -45,15 +47,17 @@ const ClassIntro = () => {
 
     return (
         <main>
-            <section className="w-full h-screen grid grid-cols-2 gap-6 pt-[120px] p-6">
-                <div className="w-full h-full bg-[var(--color-accent)] rounded-3xl overflow-hidden">
-                    <img
-                        className="w-full h-auto hover:scale-110 transition-all duration-300 ease-in-out object-cover"
-                        src={image === "" ?  Character : `${process.env.REACT_APP_API_IMGURL}${image}` }
-                        alt="Character"
-                    />
+            <section className="w-full h-screen grid grid-cols-2 gap-6 pt-[72px] p-6 my-12">
+                <div className='w-full h-full flex flex-col justify-between items-start gap-12 p-6'>
+                    <div className="w-full h-full bg-[var(--color-accent)] rounded-3xl overflow-hidden">
+                        <img
+                            className="w-full h-full hover:scale-110 transition-all duration-300 ease-in-out object-cover"
+                            src={image === "" ? Character : `${process.env.REACT_APP_API_IMGURL}${image}`}
+                            alt="Character"
+                        />
+                    </div>
                 </div>
-                <div className="w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl p-6">
+                <div className="w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl p-6 gap-12">
                     <div className="w-full h-full flex flex-col gap-8">
                         <div className="w-full h-fit space-y-4">
                             <h3 className="w-fit text-[20px] text-center leading-none font-semibold uppercase px-6 py-2 border border-[var(--color-secondary)] rounded-full">
@@ -84,18 +88,20 @@ const ClassIntro = () => {
                                     Tujuan Pembelajaran
                                 </h3>
                             </div>
-                            <p className="text-sm leading-6">
-                                {courseDetails?.attributes?.objective || 'No Objective Available'}
-                            </p>
+                            <div className="text-sm leading-6 markdown">
+                                <Markdown className='leading-7 space-y-4 text-justify' remarkPlugins={[remarkGfm]}>
+                                    {courseDetails?.attributes?.objective || 'No Objective Available'}
+                                </Markdown>
+                            </div>
                         </div>
-                    </div>
-                    <div className="w-full h-fit">
-                        <button onClick={() => nextPage()} className="w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] group" >
-                            <p className="font-normal transform ease-in-out duration-300 transition-all group-hover:mr-8">
-                                Mulai Belajar
-                            </p>
-                            <FontAwesomeIcon icon={faArrowRight} className="w-[12px] h-[12px] text-[var(--color-secondary)]"/>
-                        </button>
+                        <div className="w-full h-fit flex justify-end">
+                            <button onClick={() => nextPage()} className="w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] group" >
+                                <p className="font-normal transform ease-in-out duration-300 transition-all group-hover:mr-8">
+                                    Mulai Belajar
+                                </p>
+                                <FontAwesomeIcon icon={faArrowRight} className="w-[12px] h-[12px] text-[var(--color-secondary)]" />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>

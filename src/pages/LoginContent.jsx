@@ -23,9 +23,9 @@ const LoginContent = () => {
     useEffect (() => {
         if(isLogin === true){
 
-            navigateMain()
+            navigateMain();
         }
-    }, [isLogin])
+    }, [isLogin]);
 
     const navigateMain = () => {
         navigate('/main');

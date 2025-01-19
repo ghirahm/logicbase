@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router';
 const MainContent = () => {
     const { username, courseList, fetchMain, isLoading, setCourseId } = useUser();
 
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchMain();
@@ -103,7 +103,7 @@ const MainContent = () => {
                                 <p className='text-[24px] flex flex-row items-center gap-4 text-left leading-none font-bold text-[var(--color-secondary)]'><FontAwesomeIcon icon={faFire} className='w-[20px] h-[20px] text-[var(--color-secondary)]' />Pre-Test</p>
                                 <p className='text-sm font-normal text-[var(--color-secondary)] text-balance leading-7'><span className='font-semibold'>Sebelum memulai pembelajaran</span> menggunakan Logic Base harap mengisi pre-test terlebih dahulu ya. Dilarang bekerja sama dengan teman! Kerjakan sesuai kemampuanmu ya.</p>
                             </div>
-                            <button className='h-full p-6 bg-[var(--color-tertiary)] hover:bg-[var(--color-accent)] rounded-full group'>
+                            <button onClick={() => navigate(`/main/forms/pretest`)} className='h-full p-6 bg-[var(--color-tertiary)] hover:bg-[var(--color-accent)] rounded-full group'>
                                 <FontAwesomeIcon icon={faArrowRight} className='w-[12px] h-[12px] text-[var(--color-secondary)] group-hover:text-[var(--color-primary)]' />
                             </button>
                         </div>
@@ -112,7 +112,7 @@ const MainContent = () => {
                                 <p className='text-[24px] flex flex-row items-center gap-4 text-left leading-none font-bold text-[var(--color-secondary)]'><FontAwesomeIcon icon={faBook} className='w-[20px] h-[20px] text-[var(--color-secondary)]' />Post-Test</p>
                                 <p className='text-sm font-normal text-[var(--color-secondary)] text-balance leading-7'>Terima kasih sudah <span className='font-semibold'>menyelesaikan pembelajaran</span> di Logic Base! Jangan lupa untuk mengerjakan post-test pembelajaran sebagai syarat untuk mendapatkan reward! </p>
                             </div>
-                            <button className='h-full p-6 bg-[var(--color-tertiary)] hover:bg-[var(--color-accent)] rounded-full group'>
+                            <button onClick={() => navigate(`/main/forms/posttest`)} className='h-full p-6 bg-[var(--color-tertiary)] hover:bg-[var(--color-accent)] rounded-full group'>
                                 <FontAwesomeIcon icon={faArrowRight} className='w-[12px] h-[12px] text-[var(--color-secondary)] group-hover:text-[var(--color-primary)]' />
                             </button>
                         </div>
@@ -121,7 +121,7 @@ const MainContent = () => {
                                 <p className='text-[24px] flex flex-row items-center gap-4 text-left leading-none font-bold text-[var(--color-secondary)]'><FontAwesomeIcon icon={faCamera} className='w-[20px] h-[20px] text-[var(--color-secondary)]' />Kuisioner</p>
                                 <p className='text-sm font-normal text-[var(--color-secondary)] text-balance leading-7'>Terima kasih sudah <span className='font-semibold'>menyelesaikan pembelajaran</span> di Logic Base! Jangan lupa untuk mengerjakan kuesioner pembelajaran sebagai syarat untuk mendapatkan reward! </p>
                             </div>
-                            <button className='h-full p-6 bg-[var(--color-tertiary)] hover:bg-[var(--color-accent)] rounded-full group'>
+                            <button onClick={() => navigate(`/main/forms/kuisioner`)} className='h-full p-6 bg-[var(--color-tertiary)] hover:bg-[var(--color-accent)] rounded-full group'>
                                 <FontAwesomeIcon icon={faArrowRight} className='w-[12px] h-[12px] text-[var(--color-secondary)] group-hover:text-[var(--color-primary)]' />
                             </button>
                         </div>
@@ -149,7 +149,7 @@ const MainContent = () => {
                                     const startDate = new Date(i.course.courseDate);
                                     const day = startDate.getDate();
                                     const month = startDate.toLocaleString('en-US', { month: 'short' });
-                                    const percentage = i.progress/100;
+                                    const percentage = i.progress / 100;
 
                                     return (
                                         <div
@@ -176,7 +176,7 @@ const MainContent = () => {
                                                 <div className='w-[80%] h-4 bg-[var(--color-non-primary)] rounded-full overflow-hidden'>
                                                     <div
                                                         className="bg-[var(--color-accent)] h-full rounded-full"
-                                                        style={{ width: `${percentage * 100}%`}}
+                                                        style={{ width: `${percentage * 100}%` }}
                                                     ></div>
                                                 </div>
                                                 <p className='text-sm flex flex-row items-center gap-2 hover:font-bold'>

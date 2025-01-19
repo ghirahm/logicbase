@@ -23,6 +23,8 @@ import ClassOutro from './pages/ClassOutro';
 
 import { UserProvider } from './context.jsx/UserContext';
 import { AuthProvider } from './context.jsx/AuthContext';
+import FormContent from './pages/FormContent';
+import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +36,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path='/main' element={<MainLayout />}>
         <Route index element={<MainContent />} />
+        <Route path='forms/:form' element={<FormContent />} />
       </Route>
       <Route path='/class/:id' element={<ClassLayout />}>
         <Route index element={<ClassIntro />} />
@@ -45,6 +48,7 @@ const router = createBrowserRouter(
         <Route path='evaluation/:slug' element={<ClassEvaluation />} />
         <Route path='endClass' element={<ClassOutro />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 )

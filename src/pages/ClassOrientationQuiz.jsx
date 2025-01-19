@@ -135,8 +135,8 @@ const ClassOrientationQuiz = () => {
                                         <div className={`w-full h-fit grid ${q.image ? "grid-cols-2" : "grid-cols-1"}`}>
                                             {
                                                 q.image &&
-                                                <div className='w-full h-full bg-[var(--color-non-primary)] rounded-3xl overflow-hidden'>
-                                                    <img className='w-full bg-cover' src={`${process.env.REACT_APP_API_IMGURL}${q.image.url}`} alt='Quiz-Image' />
+                                                <div className='w-full h-fit bg-[var(--color-non-primary)] rounded-3xl overflow-hidden'>
+                                                    <img className='w-full h-full bg-cover' src={`${process.env.REACT_APP_API_IMGURL}${q.image.url}`} alt='Quiz-Image' />
                                                 </div>
                                             }
                                             <div className='w-full h-full flex flex-col gap-4 p-6'>
@@ -193,8 +193,8 @@ const ClassOrientationQuiz = () => {
                                                 <div className={`w-full h-fit grid ${q.image ? "grid-cols-2" : "grid-cols-1"}`}>
                                                     {
                                                         q.image &&
-                                                        <div className='w-full h-full bg-[var(--color-non-primary)] rounded-3xl overflow-hidden'>
-                                                            <img className='w-full bg-cover' src={`${process.env.REACT_APP_API_IMGURL}${q.image.url}`} alt='Quiz-Image' />
+                                                        <div className='w-full h-fit bg-[var(--color-non-primary)] rounded-3xl overflow-hidden'>
+                                                            <img className='w-full h-full bg-cover' src={`${process.env.REACT_APP_API_IMGURL}${q.image.url}`} alt='Quiz-Image' />
                                                         </div>
                                                     }
                                                     <div className='w-full h-full flex flex-col gap-4 p-6'>
