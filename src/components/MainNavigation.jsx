@@ -6,8 +6,7 @@ import { HashLink as Link } from 'react-router-hash-link';
 
 import Logo from '../assets/logicBase.png'
 import { useNavigate } from 'react-router';
-import { useAuth } from '../context.jsx/AuthContext';
-import { useUser } from '../context.jsx/UserContext';
+import { useAuth } from '../context/AuthContext';
 
 import Swal from 'sweetalert2';
 

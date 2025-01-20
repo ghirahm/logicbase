@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Assuming you're using React Router
-import { useAuth } from "../context.jsx/AuthContext";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const NotFound = () => {
     const { isLogin } = useAuth();

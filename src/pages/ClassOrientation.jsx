@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
 
 //USER CONTEXT
-import { useUser } from '../context.jsx/UserContext';
+import { useUser } from '../context/UserContext';
 
 //ASSETS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

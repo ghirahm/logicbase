@@ -3,7 +3,7 @@ import React from 'react';
 import Logo from '../assets/logicBase.png';
 import { useNavigate } from 'react-router';
 import { HashLink as Link } from 'react-router-hash-link';
-import { useAuth } from '../context.jsx/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 const BasicHeader = () => {
     const { isLogin } = useAuth();

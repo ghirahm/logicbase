@@ -21,8 +21,8 @@ import ClassPresentation from './pages/ClassPresentation';
 import ClassEvaluation from './pages/ClassEvaluation';
 import ClassOutro from './pages/ClassOutro';
 
-import { UserProvider } from './context.jsx/UserContext';
-import { AuthProvider } from './context.jsx/AuthContext';
+import { UserProvider } from './context/UserContext';
+import { AuthProvider } from './context/AuthContext';
 import FormContent from './pages/FormContent';
 import NotFound from './pages/NotFound';
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
 
 //USER CONTEXT
-import { useUser } from '../context.jsx/UserContext';
+import { useUser } from '../context/UserContext';
 
 //COMPONENTS
 import BasicLoading from '../components/BasicLoading';

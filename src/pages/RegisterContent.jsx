@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router';
 
 import Alert from '../utils/Alert';
 import WelcomeBanner from '../assets/banner-welcome.jpg';
-import { useAuth } from '../context.jsx/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 const RegisterContent = () => {
 

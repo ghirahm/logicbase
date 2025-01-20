@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 //USER CONTEXT
-import { useUser } from '../context.jsx/UserContext';
+import { useUser } from '../context/UserContext';
 
 //ASSETS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,12 +12,7 @@ import BasicLoading from '../components/BasicLoading';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import BasicSlider from '../components/BasicSlider';
 
 const ClassResearch = () => {
     // Parameters Page
@@ -49,7 +44,7 @@ const ClassResearch = () => {
         window.open(file, '__blank');
     };
 
-    const sliderData = courseTopic?.content[0].slider;
+    const sliderData = courseTopic?.content[0]?.slider;
 
     if (isLoading) {
         return (
@@ -74,42 +69,32 @@ const ClassResearch = () => {
                                 <h3 className='text-[20px] text-left leading-none font-semibold'>{courseTopic?.title}</h3>
                             </div>
                         </div>
-                        <div className='w-full h-full bg-[var(--color-non-primary)] rounded-3xl overflow-hidden border-2'>
-                            {
-                                sliderData?.length > 0 &&
-                                (
-                                    <Swiper
-                                        modules={[Navigation, Pagination, Autoplay]}
-                                        spaceBetween={20}
-                                        slidesPerView={1}
-                                        navigation={{
-                                            prevEl: '.swiper-button-prev',
-                                            nextEl: '.swiper-button-next',
-                                        }}
-                                        pagination={{ clickable: true,
-                                            bulletClass: 'swiper-pagination-bullet',
-                                            bulletActiveClass: 'swiper-pagination-bullet-active'}}
-                                        autoplay={{ delay: 5000 }}
-                                        className="h-full"
-                                    >
-                                        {sliderData.map((slide, index) => (
-                                            <SwiperSlide key={slide.id} className="flex justify-center items-center h-full">
-                                                <img
-                                                    src={`${process.env.REACT_APP_API_IMGURL}${slide.url}`}
-                                                    alt={slide.name || `Slide ${index + 1}`}
-                                                    className="w-full h-full object-cover rounded-3xl"
-                                                />
-                                            </SwiperSlide>
-                                        ))}
-                                    </Swiper>
-                                )}
+                        <div className='w-full h-fit'>
+                            {sliderData?.length > 0 && <BasicSlider sliderData={sliderData} />}
                         </div>
                         <div className='w-full h-fit rounded-3xl'>
                             <div className='w-full h-fit grid grid-cols-3 gap-12'>
                                 <div className='w-full h-full col-span-2 flex flex-col items-start gap-2'>
                                     <div className="text-sm leading-6 markdown">
                                         {courseTopic?.content[0]?.learningMaterial ? (
-                                            <Markdown className='leading-7 space-y-6 text-justify' remarkPlugins={[remarkGfm]}>{courseTopic?.content[0].learningMaterial}</Markdown>
+                                            <Markdown className='leading-7 space-y-6 text-justify' remarkPlugins={[remarkGfm]}
+                                            components={{
+                                                code({ inline, children, ...props }) {
+                                                    return inline ? (
+                                                        <code
+                                                            className="bg-[var(--color-non-primary)] text-[var(--color-secondary)] px-2 py-1 rounded-md text-sm font-mono"
+                                                            {...props}
+                                                        >
+                                                            {children}
+                                                        </code>
+                                                    ) : (
+                                                        <pre className="bg-[var(--color-secondary)] text-[var(--color-non-primary)] p-4 rounded-md overflow-x-auto">
+                                                            <code {...props}>{children}</code>
+                                                        </pre>
+                                                    );
+                                                },
+                                            }}
+                                            >{courseTopic?.content[0].learningMaterial}</Markdown>
                                         ) : (
                                             <p>No learning material available</p>
                                         )}

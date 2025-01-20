@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router';
 import { HashLink as Link } from 'react-router-hash-link';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import { useAuth } from '../context.jsx/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 const LoginContent = () => {
 

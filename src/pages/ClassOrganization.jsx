@@ -2,12 +2,17 @@ import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
 
 // USER CONTEXT
-import { useUser } from '../context.jsx/UserContext';
+import { useUser } from '../context/UserContext';
 
 // ASSETS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBolt, faCirclePlay, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import BasicLoading from '../components/BasicLoading';
+import Organisasi from '../assets/organization.jpg';
+
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
 
 const ClassOrganization = () => {
     // Parameters Page
@@ -33,7 +38,7 @@ const ClassOrganization = () => {
         navigate(`/class/${id}/orientationQuiz/${courseTopic?.prevTopic?.slug}`);
     }
 
-    const trimmedData = courseTopic?.content[0]?.description?.split('/r').map((item) => item.trim()).filter((item) => item.length > 0);
+    console.log(courseTopic)
 
     if (isLoading) {
         return (
@@ -55,19 +60,35 @@ const ClassOrganization = () => {
                                 <div className='w-[36px] h-[36px] bg-[var(--color-accent)] flex justify-center items-center rounded-xl text-[var(--color-primary)]'>
                                     <FontAwesomeIcon icon={faCirclePlay} className='ease-in-out transition-all duration-300 hover:rotate-45' />
                                 </div>
-                                <h3 className='text-[20px] text-left leading-none font-semibold'>Ikuti Instruksi Berikut!</h3>
+                                <h3 className='text-[20px] text-left leading-none font-semibold'>{courseTopic?.title}</h3>
                             </div>
                         </div>
-                        {
-                            trimmedData && trimmedData.map((i, index) => {
-                                return (
-                                    <div key={index} className='w-full h-[72px] flex items-center p-4 bg-[var(--color-non-primary)] rounded-3xl'>
-                                        <p className='text-sm font-normal text-[var(--color-secondary)]'>{i}</p>
-                                    </div>
 
-                                )
-                            })
-                        }
+                        <div className='w-full h-full grid grid-cols-2 items-start gap-6'>
+                            <div className='w-full h-fit bg-[var(--color-non-primary)] rounded-3xl overflow-hidden'>
+                                <img src={Organisasi} alt='Instruksi LKPD' className='w-full object-cover' />
+                            </div>
+                            <div className='flex flex-col col-span-1 gap-2'>
+                                <Markdown className='leading-7 space-y-6 text-justify' remarkPlugins={[remarkGfm]}
+                                    components={{
+                                        code({ inline, children, ...props }) {
+                                            return inline ? (
+                                                <code
+                                                    className="bg-[var(--color-non-primary)] text-[var(--color-secondary)] px-2 py-1 rounded-md text-sm font-mono"
+                                                    {...props}
+                                                >
+                                                    {children}
+                                                </code>
+                                            ) : (
+                                                <pre className="bg-[var(--color-secondary)] text-[var(--color-non-primary)] p-4 rounded-md overflow-x-auto">
+                                                    <code {...props}>{children}</code>
+                                                </pre>
+                                            );
+                                        },
+                                    }}
+                                >{courseTopic?.content[0]?.description}</Markdown>
+                            </div>
+                        </div>
                     </div>
                     <div className='w-full h-fit flex items-center justify-between'>
                         <button onClick={() => prevPage()} className='w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] opacity-80 hover:opacity-100'>
@@ -85,4 +106,4 @@ const ClassOrganization = () => {
     )
 }
 
-export default ClassOrganization
+export default ClassOrganization;

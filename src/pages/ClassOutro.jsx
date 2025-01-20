@@ -6,7 +6,7 @@ import Background from '../assets/score.gif'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router'
-import { useUser } from '../context.jsx/UserContext'
+import { useUser } from '../context/UserContext'
 
 const ClassOutro = () => {
 
