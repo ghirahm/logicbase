@@ -27,12 +27,12 @@ const BasicSlider = ({ sliderData }) => {
 
     const handleTouchStart = (e) => {
         setIsDragging(true);
-        startX.current = e.touches[0].clientX; // Track the starting X position of the swipe
+        startX.current = e.touches[0].clientX;
     };
 
     const handleTouchMove = (e) => {
         if (!isDragging) return;
-        endX.current = e.touches[0].clientX; // Update the end position during swipe
+        endX.current = e.touches[0].clientX;
     };
 
     const handleTouchEnd = () => {
@@ -40,9 +40,9 @@ const BasicSlider = ({ sliderData }) => {
         const swipeDistance = startX.current - endX.current;
 
         if (swipeDistance > 50) {
-            handleNext(); // Swipe left (next slide)
+            handleNext();
         } else if (swipeDistance < -50) {
-            handlePrev(); // Swipe right (previous slide)
+            handlePrev();
         }
 
         startX.current = 0;

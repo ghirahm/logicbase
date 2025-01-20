@@ -26,6 +26,8 @@ import { AuthProvider } from './context/AuthContext';
 import FormContent from './pages/FormContent';
 import NotFound from './pages/NotFound';
 
+import ProtectedRoute from './route/ProtectedRoute';
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -34,11 +36,11 @@ const router = createBrowserRouter(
         <Route path='login' element={<LoginContent />} />
         <Route path='register' element={<RegisterContent />} />
       </Route>
-      <Route path='/main' element={<MainLayout />}>
+      <Route path="/main" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
         <Route index element={<MainContent />} />
         <Route path='forms/:form' element={<FormContent />} />
       </Route>
-      <Route path='/class/:id' element={<ClassLayout />}>
+      <Route path="/class/:id" element={ <ProtectedRoute><ClassLayout /></ProtectedRoute>}>
         <Route index element={<ClassIntro />} />
         <Route path='orientation/:slug' element={<ClassOrientation />} />
         <Route path='orientationQuiz/:slug' element={<ClassOrientationQuiz />} />
