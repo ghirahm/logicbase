@@ -263,7 +263,7 @@ const MainContent = () => {
                         </div>
                         <div className='relative row-span-2 space-y-4 bg-[var(--color-tertiary)] rounded-3xl w-full overflow-hidden p-6'>
                             <h2 className='text-[42px] text-left leading-none font-bold text-[var(--color-primary)] uppercase'>Teacher Contact</h2>
-                            <Link to='https://wa.me/+6281818268644' className='font-normal w-fit transform ease-in-out duration-300 transition-all flex flex-row items-center gap-4 p-4 bg-[var(--color-primary)] rounded-full hover:scale-90' target='__blank'>Contact<FontAwesomeIcon icon={faPhone} /></Link>
+                            <Link to='https://wa.me/+6281289156879' className='font-normal w-fit transform ease-in-out duration-300 transition-all flex flex-row items-center gap-4 p-4 bg-[var(--color-primary)] rounded-full hover:scale-90' target='__blank'>Contact<FontAwesomeIcon icon={faPhone} /></Link>
                             <img className='absolute h-[50%] w-auto bottom-0 right-0' src={CornerYellow} alt='Character' />
                         </div>
                     </section>

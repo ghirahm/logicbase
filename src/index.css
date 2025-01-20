@@ -83,3 +83,13 @@ p {
   font-size: 1em;
   font-weight: bold;
 }
+
+.custom-swal-font {
+  font-family: 'Poppins', sans-serif;
+}
+
+.custom-alert {
+  min-width: 720px;
+  padding-bottom: 25px;
+  border-radius: 50px;
+}

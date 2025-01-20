@@ -22,7 +22,6 @@ const LoginContent = () => {
 
     useEffect (() => {
         if(isLogin === true){
-
             navigateMain();
         }
     }, [isLogin]);

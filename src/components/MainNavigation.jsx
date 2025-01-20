@@ -9,11 +9,11 @@ import { useNavigate } from 'react-router';
 import { useAuth } from '../context.jsx/AuthContext';
 import { useUser } from '../context.jsx/UserContext';
 
+import Swal from 'sweetalert2';
+
 const MainNavigation = () => {
 
     const { setIsLogin } = useAuth();
-
-    const { username } = useUser();
     const navigate = useNavigate();
 
     const scrollOffset = (el) => {
@@ -23,9 +23,41 @@ const MainNavigation = () => {
     }
 
     const handleSignOut = () => {
-        localStorage.removeItem('token');
-        setIsLogin(false);
-        navigate('/login');
+        Swal.fire({
+            title: 'Apakah Kamu Yakin?',
+            color: 'var(--color-secondary)',
+            icon: 'question',
+            iconColor: 'var(--color-secondary)',
+            showCancelButton: true,
+            confirmButtonColor: 'var(--color-tertiary)',
+            cancelButtonColor: 'var(--color-accent)',
+            confirmButtonText: 'Ya, Log Out',
+            cancelButtonText: 'Batal',
+            animation: true,
+            allowEscapeKey: true,
+            customClass: {
+                popup: 'custom-alert',
+                container: 'custom-swal-font',
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem('token');
+                setIsLogin(false);
+                navigate('/login');
+                Swal.fire({
+                    title: 'Berhasil Log Out',
+                    color: 'var(--color-secondary)',
+                    icon: 'success',
+                    iconColor: 'var(--color-secondary)',
+                    confirmButtonColor: 'var(--color-tertiary)',
+                    confirmButtonText: 'Oke, Terima Kasih',
+                    customClass: {
+                        popup: 'custom-alert',
+                        container: 'custom-swal-font',
+                    }
+                });
+            }
+        });
     };
 
     return (
@@ -75,4 +107,4 @@ const MainNavigation = () => {
     )
 }
 
-export default MainNavigation
+export default MainNavigation;

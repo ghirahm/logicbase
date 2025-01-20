@@ -19,6 +19,8 @@
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "5.0.1",
     "remark-gfm": "^4.0.0",
+    "sweetalert2": "^11.15.10",
+    "swiper": "^11.2.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -18,7 +18,10 @@ export const AuthProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
 
-    const [isLogin, setIsLogin] = useState(false);
+    const [isLogin, setIsLogin] = useState(() => {
+        return localStorage.getItem('token') ? true : false;
+    });
+
     const [isRegister, setIsRegister] = useState(false);
 
     const { handleSubmit } = useForm();
@@ -73,7 +76,6 @@ export const AuthProvider = ({ children }) => {
                 setIsRegister(true);
             })
             .catch((error) => {
-                console.log(error)
                 setIsError('Register Invalid');
             })
             .finally(() => {

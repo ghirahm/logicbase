@@ -1,13 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 // USER CONTEXT
 import { useUser } from '../context.jsx/UserContext';
 
+// AXIOS
+import axios from 'axios';
+
 // ASSETS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThunderstorm, faCirclePlay, faCat, faDownload, faUpload, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import BasicLoading from '../components/BasicLoading';
+import Instruksi from '../assets/instruksi.jpg';
 
 const ClassPresentation = () => {
     // Parameters Page
@@ -32,6 +36,45 @@ const ClassPresentation = () => {
     const prevPage = () => {
         navigate(`/class/${id}/research/${courseTopic?.prevTopic?.slug}`);
     }
+
+    const handleDownloadFile = (fileLink) => {
+        const file = `${process.env.REACT_APP_API_IMGURL}${fileLink}`;
+        window.open(file, '__blank');
+    };
+
+    const [file, setFile] = useState(null);
+    const [uploadStatus, setUploadStatus] = useState('');
+
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
+    };
+
+    const handleUpload = async () => {
+        const token = localStorage.getItem("token");
+
+        if (!file) {
+            setUploadStatus('Please select a file to upload.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('files', file);
+
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}api/upload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            setUploadStatus('File uploaded successfully!');
+        } catch (error) {
+            console.error('File upload failed:', error);
+            setUploadStatus('Failed to upload the file. Please try again.');
+        }
+    };
+
 
     if (isLoading) {
         return (
@@ -58,37 +101,41 @@ const ClassPresentation = () => {
                         </div>
                         <div className='w-full h-fit rounded-3xl'>
                             <div className='w-full h-fit grid grid-cols-2 gap-6'>
-
                                 <div className='w-full h-full col-span-1 flex flex-col items-start gap-6'>
-                                    <div className='w-full h-[360px] bg-[var(--color-non-primary)] rounded-3xl'>
-
+                                    <div className='w-full h-fit bg-[var(--color-non-primary)] rounded-3xl overflow-hidden'>
+                                        <img src={Instruksi} alt='Instruksi LKPD' className='w-full object-cover' />
                                     </div>
                                     <div className='flex flex-col gap-2'>
-                                        <p className='text-sm font-bold'>Materi Pembelajaran</p>
-                                        <p className='text-sm leading-6'>SQL queries are made up of components that work together to retrieve and manipulate data from a database. The structure of an SQL query is defined by several clauses that specify the query's purpose, scope, and output. Some components of an SQL.</p>
+                                        <p className='text-sm font-bold'>Instruksi dan Petunjuk</p>
+                                        <p className='text-sm leading-6'>Perhatikan instruksi pada gambar berikut ini ya!</p>
                                     </div>
                                 </div>
                                 <div className='w-full h-full col-span-1 flex flex-col items-start gap-6 rounded-3xl'>
-                                    <div className='w-full flex flex-col items-left justify-center gap-2 p-6 bg-[var(--color-non-primary)] rounded-3xl'>
+                                    <div className='w-full flex flex-col items-left justify-center gap-2 p-8 bg-[var(--color-non-primary)] rounded-3xl'>
                                         <div className='flex flex-row items-center gap-4'>
                                             <FontAwesomeIcon icon={faCat} className='text-[var(--color-secondary)]' />
                                             <p className='text-sm font-bold'>File Modul</p>
                                         </div>
-                                        <p className='text-sm leading-6'>Berdasarkan video tersebut apa yang kamu pahami tentang database?</p>
+                                        <p className='text-sm leading-6'>Modul pembelajaran untuk menambah pemahaman dan pengetahuan-mu!</p>
+                                        <button className="mt-4 px-4 py-2 text-sm font-medium text-[var(--color-primary)] bg-[var(--color-accent)] hover:bg-[var(--color-shadow)] rounded-full transition duration-300" onClick={() => handleDownloadFile(courseTopic?.content[0]?.moduleFile.url)}>Unduh File</button>
                                     </div>
-                                    <div className='w-full flex flex-col items-left justify-center gap-2 p-6 bg-[var(--color-non-primary)] rounded-3xl'>
+                                    <div className='w-full flex flex-col items-left justify-center gap-2 p-8 bg-[var(--color-non-primary)] rounded-3xl'>
                                         <div className='flex flex-row items-center gap-4'>
                                             <FontAwesomeIcon icon={faDownload} className='text-[var(--color-secondary)]' />
                                             <p className='text-sm font-bold'>File LKPD</p>
                                         </div>
-                                        <p className='text-sm leading-6'>Berdasarkan video tersebut apa yang kamu pahami tentang database?</p>
+                                        <p className='text-sm leading-6'>Klik modul di bawah ini untuk mengunduh dokumen pengerjaan LKPD!</p>
+                                        <button className="mt-4 px-4 py-2 text-sm font-medium text-[var(--color-primary)] bg-[var(--color-accent)] hover:bg-[var(--color-shadow)] rounded-full transition duration-300" onClick={() => handleDownloadFile(courseTopic?.content[0]?.lkpdFile.url)}>Unduh File</button>
                                     </div>
-                                    <div className='w-full flex flex-col items-left justify-center gap-2 p-6 bg-[var(--color-non-primary)] rounded-3xl'>
+                                    <div className='w-full flex flex-col items-left justify-center gap-2 p-8 bg-[var(--color-non-primary)] rounded-3xl'>
                                         <div className='flex flex-row items-center gap-4'>
                                             <FontAwesomeIcon icon={faUpload} className='text-[var(--color-secondary)]' />
-                                            <p className='text-sm font-bold'>Upload LKPD</p>
+                                            <p className='text-sm font-bold'>Upload File LKPD</p>
                                         </div>
-                                        <p className='text-sm leading-6'>Berdasarkan video tersebut apa yang kamu pahami tentang database?</p>
+                                        <p className='text-sm leading-6'>Unggah hasil pekerjaanmu disini ya!</p>
+                                        <input type="file" onChange={handleFileChange} className="mt-4 block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[var(--color-accent)] file:text-white hover:file:bg-[var(--color-shadow)]" />
+                                        <button className="mt-4 px-4 py-2 text-sm font-medium text-[var(--color-primary)] bg-[var(--color-accent)] hover:bg-[var(--color-shadow)] rounded-full transition duration-300" onClick={handleUpload}>Upload File</button>
+                                        {uploadStatus && <p className="mt-2 text-sm text-[var(--color-secondary)]">{uploadStatus}</p>}
                                     </div>
                                 </div>
                             </div>

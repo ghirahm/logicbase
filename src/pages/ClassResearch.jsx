@@ -12,6 +12,13 @@ import BasicLoading from '../components/BasicLoading';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+
 const ClassResearch = () => {
     // Parameters Page
     const { slug, id } = useParams();
@@ -37,6 +44,13 @@ const ClassResearch = () => {
         navigate(`/class/${id}/organization/${courseTopic?.prevTopic?.slug}`)
     }
 
+    const handleDownloadFile = (fileLink) => {
+        const file = `${process.env.REACT_APP_API_IMGURL}${fileLink}`;
+        window.open(file, '__blank');
+    };
+
+    const sliderData = courseTopic?.content[0].slider;
+
     if (isLoading) {
         return (
             <BasicLoading loadingNotes="Loading Course" />
@@ -60,13 +74,39 @@ const ClassResearch = () => {
                                 <h3 className='text-[20px] text-left leading-none font-semibold'>{courseTopic?.title}</h3>
                             </div>
                         </div>
-                        <div className='w-full h-[360px] bg-[var(--color-non-primary)] rounded-3xl'>
-                            {/* <img src=' ' alt=' '/> */}
+                        <div className='w-full h-full bg-[var(--color-non-primary)] rounded-3xl overflow-hidden border-2'>
+                            {
+                                sliderData?.length > 0 &&
+                                (
+                                    <Swiper
+                                        modules={[Navigation, Pagination, Autoplay]}
+                                        spaceBetween={20}
+                                        slidesPerView={1}
+                                        navigation={{
+                                            prevEl: '.swiper-button-prev',
+                                            nextEl: '.swiper-button-next',
+                                        }}
+                                        pagination={{ clickable: true,
+                                            bulletClass: 'swiper-pagination-bullet',
+                                            bulletActiveClass: 'swiper-pagination-bullet-active'}}
+                                        autoplay={{ delay: 5000 }}
+                                        className="h-full"
+                                    >
+                                        {sliderData.map((slide, index) => (
+                                            <SwiperSlide key={slide.id} className="flex justify-center items-center h-full">
+                                                <img
+                                                    src={`${process.env.REACT_APP_API_IMGURL}${slide.url}`}
+                                                    alt={slide.name || `Slide ${index + 1}`}
+                                                    className="w-full h-full object-cover rounded-3xl"
+                                                />
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+                                )}
                         </div>
                         <div className='w-full h-fit rounded-3xl'>
-                            <div className='w-full h-fit grid grid-cols-3 gap-6'>
+                            <div className='w-full h-fit grid grid-cols-3 gap-12'>
                                 <div className='w-full h-full col-span-2 flex flex-col items-start gap-2'>
-                                    <p className='text-sm font-bold'>Materi Pembelajaran</p>
                                     <div className="text-sm leading-6 markdown">
                                         {courseTopic?.content[0]?.learningMaterial ? (
                                             <Markdown className='leading-7 space-y-6 text-justify' remarkPlugins={[remarkGfm]}>{courseTopic?.content[0].learningMaterial}</Markdown>
@@ -76,26 +116,29 @@ const ClassResearch = () => {
                                     </div>
                                 </div>
                                 <div className='w-full h-full col-span-1 flex flex-col items-start gap-6 rounded-3xl'>
-                                    <div className='w-full flex flex-col items-left justify-center gap-2 p-6 bg-[var(--color-non-primary)] rounded-3xl'>
+                                    <div className='w-full flex flex-col items-left justify-center gap-2 p-8 bg-[var(--color-non-primary)] rounded-3xl'>
                                         <div className='flex flex-row items-center gap-4'>
                                             <FontAwesomeIcon icon={faCat} className='text-[var(--color-secondary)]' />
                                             <p className='text-sm font-bold'>File Modul</p>
                                         </div>
-                                        <p className='text-sm leading-6'>Berdasarkan video tersebut apa yang kamu pahami tentang database?</p>
+                                        <p className='text-sm leading-6'>Modul pembelajaran untuk menambah pemahaman dan pengetahuan-mu!</p>
+                                        <button className="mt-4 px-4 py-2 text-sm font-medium text-[var(--color-primary)] bg-[var(--color-accent)] hover:bg-[var(--color-shadow)] rounded-full transition duration-300" onClick={() => handleDownloadFile(courseTopic?.content[0]?.moduleFile.url)}>Unduh File</button>
                                     </div>
-                                    <div className='w-full flex flex-col items-left justify-center gap-2 p-6 bg-[var(--color-non-primary)] rounded-3xl'>
+                                    <div className='w-full flex flex-col items-left justify-center gap-2 p-8 bg-[var(--color-non-primary)] rounded-3xl'>
                                         <div className='flex flex-row items-center gap-4'>
                                             <FontAwesomeIcon icon={faDownload} className='text-[var(--color-secondary)]' />
                                             <p className='text-sm font-bold'>File LKPD</p>
                                         </div>
-                                        <p className='text-sm leading-6'>Berdasarkan video tersebut apa yang kamu pahami tentang database?</p>
+                                        <p className='text-sm leading-6'>Klik modul di bawah ini untuk mengunduh dokumen pengerjaan LKPD!</p>
+                                        <button className="mt-4 px-4 py-2 text-sm font-medium text-[var(--color-primary)] bg-[var(--color-accent)] hover:bg-[var(--color-shadow)] rounded-full transition duration-300" onClick={() => handleDownloadFile(courseTopic?.content[0]?.lkpdFile.url)}>Unduh File</button>
                                     </div>
-                                    <div className='w-full flex flex-col items-left justify-center gap-2 p-6 bg-[var(--color-non-primary)] rounded-3xl'>
+                                    <div className='w-full flex flex-col items-left justify-center gap-2 p-8 bg-[var(--color-non-primary)] rounded-3xl'>
                                         <div className='flex flex-row items-center gap-4'>
                                             <FontAwesomeIcon icon={faBook} className='text-[var(--color-secondary)]' />
                                             <p className='text-sm font-bold'>References</p>
                                         </div>
-                                        <p className='text-sm leading-6'>Berdasarkan video tersebut apa yang kamu pahami tentang database?</p>
+                                        <p className='text-sm leading-6'>Berikut adalah sumber referensi dari materi yang sedang kamu pelajari!</p>
+                                        <button className="mt-4 px-4 py-2 text-sm font-medium text-[var(--color-primary)] bg-[var(--color-accent)] hover:bg-[var(--color-shadow)] rounded-full transition duration-300" onClick={() => window.open(courseTopic.content[0].references, '_blank')}>Akses Pembelajaran</button>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +150,7 @@ const ClassResearch = () => {
                             <h3 className='text-[20px] text-left leading-none font-semibold'>Drag and Drop Quiz</h3>
                         </div>
                         <div className='w-full h-screen rounded-3xl overflow-hidden'>
-                        <div className='w-full h-full flex flex-col gap-8'><iframe className='w-full h-full flex' src={courseTopic?.content[0]?.quizzizLink} title=" - Quizizz" allowfullscreen></iframe></div>
+                            <div className='w-full h-full flex flex-col gap-8'><iframe className='w-full h-full flex' src={courseTopic?.content[0]?.quizzizLink} title=" - Quizizz" allowfullscreen></iframe></div>
                         </div>
                         <div className='flex flex-row items-center justify-start gap-4'>
                             <div className='w-[36px] h-[36px] bg-[var(--color-accent)] flex justify-center items-center rounded-xl text-[var(--color-primary)]'>
