@@ -1,9 +1,12 @@
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const BasicSlider = ({ sliderData }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
+    const startX = useRef(0);
+    const endX = useRef(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -22,11 +25,49 @@ const BasicSlider = ({ sliderData }) => {
         );
     };
 
+    const handleTouchStart = (e) => {
+        setIsDragging(true);
+        startX.current = e.touches[0].clientX; // Track the starting X position of the swipe
+    };
+
+    const handleTouchMove = (e) => {
+        if (!isDragging) return;
+        endX.current = e.touches[0].clientX; // Update the end position during swipe
+    };
+
+    const handleTouchEnd = () => {
+        setIsDragging(false);
+        const swipeDistance = startX.current - endX.current;
+
+        if (swipeDistance > 50) {
+            handleNext(); // Swipe left (next slide)
+        } else if (swipeDistance < -50) {
+            handlePrev(); // Swipe right (previous slide)
+        }
+
+        startX.current = 0;
+        endX.current = 0;
+    };
+
     return (
-        <div className="relative w-full h-[520px] bg-[var(--color-non-primary)] rounded-3xl overflow-hidden border">
+        <div
+            className="relative w-full h-[520px] bg-[var(--color-non-primary)] rounded-3xl overflow-hidden border"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+        >
             {sliderData.map((slide, index) => (
-                <div key={slide.id} className={`absolute w-full inset-0 transition-opacity duration-500 ${ index === currentIndex ? 'opacity-100' : 'opacity-0'}`}>
-                    <img src={`${process.env.REACT_APP_API_IMGURL}${slide.url}`} alt={slide.name || `Slide ${index + 1}`} className="w-full h-full object-cover rounded-3xl"/>
+                <div
+                    key={slide.id}
+                    className={`absolute w-full inset-0 transition-transform duration-500 ${
+                        index === currentIndex ? 'translate-x-0' : index < currentIndex ? '-translate-x-full' : 'translate-x-full'
+                    }`}
+                >
+                    <img
+                        src={`${process.env.REACT_APP_API_IMGURL}${slide.url}`}
+                        alt={slide.name || `Slide ${index + 1}`}
+                        className="w-full h-full object-cover rounded-3xl"
+                    />
                 </div>
             ))}
 
@@ -34,13 +75,13 @@ const BasicSlider = ({ sliderData }) => {
                 onClick={handlePrev}
                 className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-[var(--color-primary)] p-2 rounded-full shadow-md"
             >
-                <FontAwesomeIcon icon={faAngleLeft} className='w-[24px]' />
+                <FontAwesomeIcon icon={faAngleLeft} className="w-[24px]" />
             </button>
             <button
                 onClick={handleNext}
                 className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-[var(--color-primary)] p-2 rounded-full shadow-md"
             >
-                <FontAwesomeIcon icon={faAngleRight} className='w-[24px]'/>
+                <FontAwesomeIcon icon={faAngleRight} className="w-[24px]" />
             </button>
 
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
@@ -48,7 +89,9 @@ const BasicSlider = ({ sliderData }) => {
                     <span
                         key={index}
                         className={`w-2 h-2 rounded-full ${
-                            index === currentIndex ? 'bg-[var(--color-tertiary)]' : 'bg-[var(--color-non-primary)]'
+                            index === currentIndex
+                                ? 'bg-[var(--color-tertiary)]'
+                                : 'bg-[var(--color-non-primary)]'
                         }`}
                     ></span>
                 ))}
