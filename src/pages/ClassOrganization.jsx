@@ -68,8 +68,8 @@ const ClassOrganization = () => {
                             <div className='w-full h-fit bg-[var(--color-non-primary)] rounded-3xl overflow-hidden'>
                                 <img src={Organisasi} alt='Instruksi LKPD' className='w-full object-cover' />
                             </div>
-                            <div className='flex flex-col col-span-1 gap-2'>
-                                <Markdown className='leading-7 space-y-6 text-justify' remarkPlugins={[remarkGfm]}
+                            <div className='flex flex-col col-span-1 gap-2 markdown'>
+                                <Markdown className='leading-8 space-y-6 text-justify' remarkPlugins={[remarkGfm]}
                                     components={{
                                         code({ inline, children, ...props }) {
                                             return inline ? (

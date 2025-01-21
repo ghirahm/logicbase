@@ -83,7 +83,7 @@ const MainContent = () => {
                                 <FontAwesomeIcon icon={faBarChart} className='text-[var(--color-primary)]' />
                                 <p className='text-[var(--color-primary)]'>Beginner</p>
                                 <FontAwesomeIcon icon={faClock} className='text-[var(--color-primary)]' />
-                                <p className='text-[var(--color-primary)]'>8 Hours</p>
+                                <p className='text-[var(--color-primary)]'>6 Hours</p>
                             </div>
                         </div>
                         <Link smooth to='/main#class' scroll={scrollOffset} className='w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-primary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] mt-12 group'>
@@ -138,7 +138,7 @@ const MainContent = () => {
                                     <FontAwesomeIcon icon={faBarChart} className='text-[var(--color-secondary)]' />
                                     <p className='text-[var(--color-secondary)]'>Beginner</p>
                                     <FontAwesomeIcon icon={faClock} className='text-[var(--color-secondary)]' />
-                                    <p className='text-[var(--color-secondary)]'>8 Hours</p>
+                                    <p className='text-[var(--color-secondary)]'>6 Hours</p>
                                 </div>
                             </div>
 
@@ -258,7 +258,7 @@ const MainContent = () => {
                         <div className='relative row-span-2 space-y-4 bg-[var(--color-tertiary)] rounded-3xl w-full overflow-hidden p-6'>
                             <h2 className='text-[42px] text-left leading-none font-bold text-[var(--color-primary)] uppercase'>FAQ's</h2>
                             <p className='text-sm font-normal text-[var(--color-primary)] text-balance leading-7'>Frequently Asked Question</p>
-                            <button className='font-normal transform ease-in-out duration-300 transition-all flex flex-row items-center gap-4 p-4 bg-[var(--color-primary)] rounded-full hover:scale-90'>Help Me!<FontAwesomeIcon icon={faArrowRight} /></button>
+                            <Link to='/main/question' className='w-fit font-normal transform ease-in-out duration-300 transition-all flex flex-row items-center gap-4 p-4 bg-[var(--color-primary)] rounded-full hover:scale-90'>Help Me!<FontAwesomeIcon icon={faArrowRight} /></Link>
                             <img className='absolute h-[50%] w-auto bottom-0 right-0' src={CharacterYellow} alt='Character' />
                         </div>
                         <div className='relative row-span-2 space-y-4 bg-[var(--color-tertiary)] rounded-3xl w-full overflow-hidden p-6'>
