@@ -8,7 +8,7 @@ import { faClose } from '@fortawesome/free-solid-svg-icons';
 const ClassHeader = () => {
   return (
     <header className='w-screen'>
-        <nav className='w-full h-[100px] fixed top-0 flex justify-between items-center bg-[var(--color-tertiary)] text-[var(--color-primary)] px-20 z-30'>
+        <nav className='w-full h-[100px] fixed top-0 flex justify-between items-center bg-[var(--color-tertiary)] text-[var(--color-primary)] px-4 lg:px-20 z-30'>
             <ul className='flex w-fit h-full items-center gap-[40px] text-[16px] font-normal'>
                 <li>
                     <Link smooth to='/main'>

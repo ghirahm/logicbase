@@ -13,13 +13,13 @@ const BasicFooter = () => {
     }
     
     return (
-        <footer className='w-full'>
-            <div className="w-full h-[360px] flex items-center justify-center bg-[var(--color-tertiary)] border-t-2 border-[var(--color-primary)]">
+        <footer className='w-full h-fit'>
+            <div className="w-full h-[480px] md:h-[360px] flex items-center justify-center bg-[var(--color-tertiary)] border-t-2 border-[var(--color-primary)]">
                 <div className="w-[80%] px-4 text-white flex flex-col">
                     <div className="flex flex-col">
-                        <div className="flex mt-24 mb-12 flex-row items-center justify-between">
+                        <div className="flex mt-12 mb-6 md:mt-24 md:mb-12 flex-col md:flex-row gap-8 items-center justify-start md:justify-between">
                             <Link smooth to='/#home' scroll={scrollOffset} className="">
-                                <img src={Logo} alt='Logic Base Logo' className='w-auto h-[100px] cursor-pointer transition-all ease-in-out duration-300 hover:scale-110'/>
+                                <img src={Logo} alt='Logic Base Logo' className='md:w-auto h-[48px] w-auto lg:h-[100px] cursor-pointer transition-all ease-in-out duration-300 hover:scale-110'/>
                             </Link>
                             <Link smooth to='/#home' scroll={scrollOffset} className='cursor-pointer text-[var(--color-primary)] ease-in-out duration-300 hover:-translate-y-1'>About</Link>
                             <Link smooth to='/login' className='cursor-pointer text-[var(--color-primary)] ease-in-out duration-300 hover:-translate-y-1'>Course</Link>

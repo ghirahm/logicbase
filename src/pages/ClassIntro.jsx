@@ -46,9 +46,9 @@ const ClassIntro = () => {
     }
 
     return (
-        <main>
-            <section className="w-full h-screen grid grid-cols-2 gap-6 pt-[72px] p-6 my-12">
-                <div className='w-full h-full flex flex-col justify-between items-start gap-12 p-6'>
+        <main className='my-12 lg:my-0'>
+            <section className="w-full h-screen grid grid-cols-1 lg:grid-cols-2 gap-6 pt-[72px] p-6 my-12">
+                <div className='w-full h-full flex flex-col justify-between items-start gap-12 lg:p-6'>
                     <div className="w-full h-full bg-[var(--color-accent)] rounded-3xl overflow-hidden">
                         <img
                             className="w-full h-full hover:scale-110 transition-all duration-300 ease-in-out object-cover"
@@ -57,13 +57,13 @@ const ClassIntro = () => {
                         />
                     </div>
                 </div>
-                <div className="w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl p-6 gap-12">
+                <div className="w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl lg:p-6 gap-12">
                     <div className="w-full h-full flex flex-col gap-8">
                         <div className="w-full h-fit space-y-4">
                             <h3 className="w-fit text-[20px] text-center leading-none font-semibold uppercase px-6 py-2 border border-[var(--color-secondary)] rounded-full">
                                 Pertemuan {courseDetails?.id}
                             </h3>
-                            <h2 className="text-[48px] text-left leading-tight font-bold text-balance">
+                            <h2 className="text-[32px] md:text-[48px] text-left leading-tight font-bold text-balance">
                                 {courseDetails?.attributes?.title || 'No Title Available'}
                             </h2>
                         </div>

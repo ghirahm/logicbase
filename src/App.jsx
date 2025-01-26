@@ -28,6 +28,7 @@ import NotFound from './pages/NotFound';
 
 import ProtectedRoute from './route/ProtectedRoute';
 import QuestionContent from './pages/QuestionContent';
+import ProfileContent from './pages/ProfileContent';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,6 +42,7 @@ const router = createBrowserRouter(
         <Route index element={<MainContent />} />
         <Route path='forms/:form' element={<FormContent />} />
         <Route path='question' element={<QuestionContent />} />
+        <Route path='profile' element={<ProfileContent />} />
       </Route>
       <Route path="/class/:id" element={ <ProtectedRoute><ClassLayout /></ProtectedRoute>}>
         <Route index element={<ClassIntro />} />

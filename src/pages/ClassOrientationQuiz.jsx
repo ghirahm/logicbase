@@ -104,7 +104,7 @@ const ClassOrientationQuiz = () => {
                 isError && <Alert isError={isError} setIsError={setIsError} />
             }
             <section className='w-full h-fit flex flex-col gap-6 pt-[120px] p-6'>
-                <div className='w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl p-6 gap-12'>
+                <div className='w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl lg:p-6 gap-12'>
                     <div className='w-full h-full flex flex-col gap-8'>
                         <div className='w-fit h-fit flex flex-row items-center gap-2 px-6 py-2 border border-[var(--color-secondary)] rounded-full'>
                             <FontAwesomeIcon icon={faBullseye} className='ease-in-out transition-all duration-300 hover:rotate-45' />
@@ -139,8 +139,8 @@ const ClassOrientationQuiz = () => {
                                                     <img className='w-full h-full bg-cover' src={`${process.env.REACT_APP_API_IMGURL}${q.image.url}`} alt='Quiz-Image' />
                                                 </div>
                                             }
-                                            <div className='w-full h-full flex flex-col gap-4 p-6'>
-                                                <h3 className='w-full text-[36px] text-left font-semibold'>{q.question}</h3>
+                                            <div className='w-full h-full flex flex-col gap-4 lg:p-6'>
+                                                <h3 className='w-full text-[24px] lg:text-[36px] text-left font-semibold'>{q.question}</h3>
                                                 {
                                                     option.map((i, index) => {
                                                         let buttonStyle;
@@ -234,13 +234,13 @@ const ClassOrientationQuiz = () => {
                 <section className='w-full h-fit flex flex-col justify-center items-center p-6'>
                     <div className='w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl p-6 gap-12'>
                         <div className='w-full h-[80vh] relative flex flex-col gap-4 justify-center items-center text-[var(--color-primary)] rounded-3xl p-6 overflow-hidden'>
-                            <img src={Background} className="absolute w-full h-auto blur-lg object-cover" alt="" />
+                            <img src={Background} className="absolute w-full h-full blur-lg object-cover" alt="" />
                             <img src={Happy} alt='' className='w-[10%] z-20' />
                             <div className='w-fit h-fit flex flex-row items-center gap-2 px-6 py-2 z-20 border border-[var(--color-primary)] rounded-full'>
                                 <p className='w-fit text-sm text-center leading-none font-semibold'>Congratulations</p>
                             </div>
                             <h3 className='w-fit text-[36px] text-center font-bold z-20'>{score} Point</h3>
-                            <p className='w-[30%] text-sm leading-6 z-20 text-center'>{scoreDescription}</p>
+                            <p className='w-full md:w-[30%] text-sm leading-6 z-20 text-center'>{scoreDescription}</p>
                         </div>
                         <div className='w-full h-fit flex items-center justify-between'>
                             <button onClick={() => prevPage()} className='w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] opacity-80 hover:opacity-100'>

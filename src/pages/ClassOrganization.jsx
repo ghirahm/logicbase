@@ -64,7 +64,7 @@ const ClassOrganization = () => {
                             </div>
                         </div>
 
-                        <div className='w-full h-full grid grid-cols-2 items-start gap-6'>
+                        <div className='w-full h-full grid grid-cols-1 lg:grid-cols-2 items-start gap-6'>
                             <div className='w-full h-fit bg-[var(--color-non-primary)] rounded-3xl overflow-hidden'>
                                 <img src={Organisasi} alt='Instruksi LKPD' className='w-full object-cover' />
                             </div>

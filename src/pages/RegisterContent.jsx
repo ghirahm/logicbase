@@ -28,12 +28,12 @@ const RegisterContent = () => {
     }
 
     return (
-        <section className='w-full h-screen flex flex-row bg-[var(--color-tertiary)] mt-[36px]'>
+        <section className='w-full h-screen flex flex-row bg-[var(--color-tertiary)] mt-[84px] xl:mt-[36px]'>
             {
                 isError && <Alert isError={isError}  setIsError={setIsError}/>
             }
 
-            <div className='w-[40%] h-full flex flex-col justify-center items-center gap-6 mx-auto'>
+            <div className='w-[80%] xl:w-[40%] h-full flex flex-col justify-center items-center gap-6 mx-auto'>
                 <Link smooth to='/'>
                     <img src={Logo} alt='Logic Base Logo' className='mx-auto h-[72px] w-auto cursor-pointer transition-all ease-in-out duration-300 hover:scale-110' />
                 </Link>
@@ -81,7 +81,7 @@ const RegisterContent = () => {
                 </div>
                 <p className='text-center text-[var(--color-primary)]'>Have an Account? {' '}<Link smooth to='/login' className='font-bold text-[var(--color-primary)] hover:underline hover:underline-offset-2 '>Sign In</Link></p>
             </div>
-            <div className='w-[36%] h-full'>
+            <div className='hidden xl:block w-[36%] h-full'>
                 <img src={WelcomeBanner} className='h-[100%] object-cover' alt='Welcome Banner' />
             </div>
         </section>

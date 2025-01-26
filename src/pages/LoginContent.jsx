@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import Alert from '../utils/Alert';
 
@@ -9,8 +9,6 @@ import { faKey, faMailBulk } from '@fortawesome/free-solid-svg-icons';
 
 import { useNavigate } from 'react-router';
 import { HashLink as Link } from 'react-router-hash-link';
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthContext';
 
 const LoginContent = () => {
@@ -31,12 +29,12 @@ const LoginContent = () => {
     }
 
     return (
-        <section className='w-full h-screen flex flex-row bg-[var(--color-tertiary)] pt-[36px]'>
+        <section className='w-full h-screen flex flex-row bg-[var(--color-tertiary)]  mt-[48px] xl:mt-[36px]'>
             {
                 isError && <Alert isError={isError} setIsError={setIsError} />
             }
 
-            <div className='w-[40%] h-full flex flex-col justify-center items-center gap-6 mx-auto'>
+            <div className='w-[80%] xl:w-[40%] h-full flex flex-col justify-center items-center gap-6 mx-auto'>
                 <Link smooth to='/'>
                     <img src={Logo} alt='Logic Base Logo' className='mx-auto h-[72px] w-auto cursor-pointer transition-all ease-in-out duration-300 hover:scale-110' />
                 </Link>
@@ -76,7 +74,7 @@ const LoginContent = () => {
                 </div>
                 <p className='text-center text-[var(--color-primary)]'>Not a Member? {' '}<Link smooth to='/register' className='font-bold text-[var(--color-primary)] hover:underline hover:underline-offset-2 '>Sign Up</Link></p>
             </div>
-            <div className='w-[36%] h-full'>
+            <div className='hidden xl:block w-[36%] h-full'>
                 <img src={WelcomeBanner} className='h-[100%] object-cover' alt='Welcome Banner' />
             </div>
         </section>

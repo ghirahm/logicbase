@@ -44,7 +44,7 @@ const ClassOrientation = () => {
     return (
         <>
             <section className='w-full h-fit flex flex-col gap-6 pt-[120px] p-6'>
-                <div className='w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl p-6 gap-12'>
+                <div className='w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl lg:p-6 gap-12'>
                     <div className='w-full h-full flex flex-col gap-8'>
                         <div className='w-fit h-fit flex flex-row items-center gap-2 px-6 py-2 border border-[var(--color-secondary)] rounded-full'>
                             <FontAwesomeIcon icon={faBolt} className='ease-in-out transition-all duration-300 hover:rotate-45' />
@@ -58,17 +58,17 @@ const ClassOrientation = () => {
                                 <h3 className='text-[20px] text-left leading-none font-semibold'>{courseTopic?.title}</h3>
                             </div>
                         </div>
-                        <div className='w-full h-[480px] bg-[var(--color-non-primary)] rounded-3xl overflow-hidden'>
+                        <div className='w-full h-[360px] lg:h-[480px] bg-[var(--color-non-primary)] rounded-3xl overflow-hidden'>
                             <iframe src={courseTopic?.content[0]?.youtubeLink} className='w-full h-full' title='Youtube Video' allowFullScreen />
                         </div>
-                        <div className='w-full h-fit grid grid-cols-2 gap-10'>
+                        <div className='w-full h-fit grid grid-cols-1 lg:grid-cols-2 gap-10'>
                             <div className='h-full col-span-1 flex items-center'>
                                 <div className='text-sm leading-6 markdown'>
                                     <Markdown className='leading-7 space-y-4 text-justify' remarkPlugins={[remarkGfm]}>{courseTopic?.content[0]?.description}</Markdown>
                                 </div>
                             </div>
-                            <div className='h-fit col-span-1 flex flex-row items-start gap-6 bg-[var(--color-non-primary)] rounded-3xl py-6 px-12'>
-                                <img src={Icon} alt='' className='w-[20%]' />
+                            <div className='h-fit col-span-1 flex flex-col md:flex-row items-start gap-6 bg-[var(--color-non-primary)] rounded-3xl px-6 py-6 lg"px-12'>
+                                <img src={Icon} alt='' className='hidden md:block w-[20%]' />
                                 <div className='flex flex-col items-left justify-center gap-2'>
                                     <p className='text-sm font-bold'>Pertanyaan Pemantik</p>
                                     <p className='text-sm leading-6'>{courseTopic?.content[0]?.starterQuestion}</p>

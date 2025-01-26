@@ -19,6 +19,7 @@ export const UserProvider = ({ children }) => {
     //Main Content
     const [courseList, setCourseList] = useState([]);
     const [courseId, setCourseId] = useState(null);
+    const [quizList, setQuizList] = useState([]);
 
     //Class Intro Content
     const [courseDetails, setCourseDetails] = useState(null);
@@ -91,9 +92,29 @@ export const UserProvider = ({ children }) => {
                 }
             })
             .finally(() => {
+            })
+
+        await axios
+            .get(`${process.env.REACT_APP_API_URL}api/topic-activities/quiz-result`, {
+                headers: {
+                    "content-type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                setQuizList(res.data);
+            })
+            .catch((err) => {
+                if(err){
+                    console.log(err)
+                }
+            })
+            .finally(() => {
                 setIsLoading(false);
             })
     }
+
+
 
     //Fetch Course Intro
     const fetchCourseDetails = async () => {
@@ -204,7 +225,7 @@ export const UserProvider = ({ children }) => {
     }
 
     return (
-        <UserContext.Provider value={{ username, fetchMain, fetchCourseDetails, courseList, courseDetails, courseId, setCourseId, isLoading, setIsLoading, topicSlug, setTopicSlug, courseTopic, image, postProgressNonQuiz, postProgressQuiz }}>
+        <UserContext.Provider value={{ username, fetchMain, fetchCourseDetails, courseList, courseDetails, courseId, setCourseId, isLoading, setIsLoading, topicSlug, setTopicSlug, courseTopic, image, postProgressNonQuiz, postProgressQuiz, quizList, setQuizList }}>
             {children}
         </UserContext.Provider>
     );
