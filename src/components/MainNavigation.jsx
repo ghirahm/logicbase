@@ -68,7 +68,7 @@ const MainNavigation = () => {
                             <img src={Logo} alt='Logic Base Logo' className='w-auto h-[24px] cursor-pointer transition-all ease-in-out duration-300 hover:scale-110' />
                         </Link>
                     </li>
-                    <li>
+                    <li className='block lg:hidden'>
                         <Link smooth to='/main#dashboard' scroll={scrollOffset} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 hover:bg-[var(--color-shadow)] group'>
                             <FontAwesomeIcon icon={faHome} className='w-[24px] h-[24px]'></FontAwesomeIcon>
                             <p className='hidden text-xs ease-in-out duration-300 group-hover:block'>Dashboard</p>
