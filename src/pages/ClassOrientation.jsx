@@ -1,33 +1,36 @@
-import React, { useEffect } from 'react';
+/* React Hooks */
+import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
 
-//USER CONTEXT
+/* Context */
 import { useUser } from '../context/UserContext';
 
-//ASSETS
+/* Font Libraries */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBolt, faCirclePlay, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
+/* Assets */
 import Icon from '../assets/icon.png';
 import BasicLoading from '../components/BasicLoading';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 const ClassOrientation = () => {
-    // Parameters Page
+    /* Parameters Page */
     const { slug, id } = useParams();
 
-    // Navigation
+    /* Navigation */
     const navigate = useNavigate();
 
-    // User Context
+    /* User Context */
     const { courseTopic, setTopicSlug, isLoading, postProgressNonQuiz } = useUser();
 
-    // Effect to Trigger Course Topic
+    /* Effect to Trigger Course Topic */
     useEffect(() => {
         setTopicSlug(slug);
     }, []);
 
-    // Function Route Page
+    /* Function Route Page */
     const nextPage = () => {
         postProgressNonQuiz(courseTopic?.id);
         navigate(`/class/${id}/orientationQuiz/${courseTopic?.nextTopic?.slug}`);
@@ -42,7 +45,7 @@ const ClassOrientation = () => {
         );
     }
     return (
-        <>
+        <main className='my-6 lg:my-0'>
             <section className='w-full h-fit flex flex-col gap-6 pt-[120px] p-6'>
                 <div className='w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl lg:p-6 gap-12'>
                     <div className='w-full h-full flex flex-col gap-8'>
@@ -88,7 +91,7 @@ const ClassOrientation = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </main>
     )
 }
 

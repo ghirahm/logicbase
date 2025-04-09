@@ -1,33 +1,37 @@
-import React, { useEffect, useState } from 'react';
+/* React Hooks */
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-// USER CONTEXT
+/* Context */
 import { useUser } from '../context/UserContext';
 
-// AXIOS
+/* Axios */
 import axios from 'axios';
 
-// ASSETS
+/* Icon Libraries */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThunderstorm, faCirclePlay, faCat, faDownload, faUpload, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
+/* Components */
 import BasicLoading from '../components/BasicLoading';
 import Instruksi from '../assets/instruksi.jpg';
 
 const ClassPresentation = () => {
-    // Parameters Page
+    /* Parameters Page */
     const { slug, id } = useParams();
 
-    // Navigation
+    /* Navigation */
     const navigate = useNavigate();
 
-    // User Context
+    /* User Context */
     const { courseTopic, setTopicSlug, isLoading, postProgressNonQuiz } = useUser();
 
-    // Effect to Trigger Course Topic
+    /* Effect to Trigger Course Topic */
     useEffect(() => {
         setTopicSlug(slug);
     }, []);
 
+    /* Function Route Page */
     const nextPage = () => {
         postProgressNonQuiz(courseTopic?.id);
         navigate(`/class/${id}/evaluation/${courseTopic?.nextTopic?.slug}`);
@@ -83,9 +87,9 @@ const ClassPresentation = () => {
     }
 
     return (
-        <>
+        <main className='my-6 lg:my-0'>
             <section className='w-full h-fit flex flex-col gap-6 pt-[120px] p-6'>
-                <div className='w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl p-6 gap-12'>
+                <div className='w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl lg:p-6 gap-12'>
                     <div className='w-full h-full flex flex-col gap-8'>
                         <div className='w-fit h-fit flex flex-row items-center gap-2 px-6 py-2 border border-[var(--color-secondary)] rounded-full'>
                             <FontAwesomeIcon icon={faThunderstorm} className='ease-in-out transition-all duration-300 hover:rotate-45' />
@@ -100,7 +104,7 @@ const ClassPresentation = () => {
                             </div>
                         </div>
                         <div className='w-full h-fit rounded-3xl'>
-                            <div className='w-full h-fit grid grid-cols-2 gap-6'>
+                            <div className='w-full h-fit grid grid-cols-1 lg:grid-cols-2 gap-6'>
                                 <div className='w-full h-full col-span-1 flex flex-col items-start gap-6'>
                                     <div className='w-full h-fit bg-[var(--color-non-primary)] rounded-3xl overflow-hidden'>
                                         <img src={Instruksi} alt='Instruksi LKPD' className='w-full object-cover' />
@@ -147,13 +151,13 @@ const ClassPresentation = () => {
                             <p className='font-normal transform ease-in-out duration-300 transition-all'>Back</p>
                         </button>
                         <button onClick={() => nextPage()} className='w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] group'>
-                            <p className='font-normal transform ease-in-out duration-300 transition-all group-hover:mr-8 '>Step 5: Evaluasi</p>
+                            <p className='font-normal transform ease-in-out duration-300 transition-all group-hover:mr-8 flex items-center'>Step 5<span className='hidden lg:block'>: Evaluasi</span></p>
                             <FontAwesomeIcon icon={faArrowRight} className='w-[12px] h-[12px] text-[var(--color-secondary)]' />
                         </button>
                     </div>
                 </div>
             </section>
-        </>
+        </main>
     )
 }
 

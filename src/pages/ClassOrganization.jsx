@@ -1,35 +1,38 @@
-import React, { useEffect } from 'react';
+/* React Hooks */
+import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
 
-// USER CONTEXT
+/* Context */
 import { useUser } from '../context/UserContext';
 
-// ASSETS
+/* Font Libraries */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBolt, faCirclePlay, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
+/* Components */
 import BasicLoading from '../components/BasicLoading';
 import Organisasi from '../assets/organization.jpg';
 
+/* React Markdown */
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-
 const ClassOrganization = () => {
-    // Parameters Page
+    /* Parameters Page */
     const { slug, id } = useParams();
 
-    // Navigation
+    /* Navigation */
     const navigate = useNavigate();
 
-    // User Context
+    /* User Context */
     const { courseTopic, setTopicSlug, isLoading, postProgressNonQuiz } = useUser();
 
-    // Effect to Trigger Course Topic
+    /* Effect to Trigger Course Topic */
     useEffect(() => {
         setTopicSlug(slug);
     }, []);
 
-    //Function Route Page
+    /* Function Route Page */
     const nextPage = () => {
         postProgressNonQuiz(courseTopic?.id);
         navigate(`/class/${id}/research/${courseTopic?.nextTopic?.slug}`);
@@ -38,8 +41,6 @@ const ClassOrganization = () => {
         navigate(`/class/${id}/orientationQuiz/${courseTopic?.prevTopic?.slug}`);
     }
 
-    console.log(courseTopic)
-
     if (isLoading) {
         return (
             <BasicLoading loadingNotes="Loading Course" />
@@ -47,13 +48,13 @@ const ClassOrganization = () => {
     }
 
     return (
-        <>
+        <main className='my-6 lg:my-0'>
             <section className='w-full h-fit flex flex-col gap-6 pt-[120px] p-6'>
-                <div className='w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl p-6 gap-12'>
+                <div className='w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl lg:p-6 gap-12'>
                     <div className='w-full h-full flex flex-col gap-8'>
                         <div className='w-fit h-fit flex flex-row items-center gap-2 px-6 py-2 border border-[var(--color-secondary)] rounded-full'>
                             <FontAwesomeIcon icon={faBolt} className='ease-in-out transition-all duration-300 hover:rotate-45' />
-                            <h3 className='w-fit text-[20px] text-center leading-none font-semibold uppercase '>Organisasi Peserta Didik</h3>
+                            <h3 className='w-fit text-[20px] text-center leading-none font-semibold uppercase '>Organisasi</h3>
                         </div>
                         <div className='w-full h-fit space-y-4'>
                             <div className='flex flex-row items-center justify-start gap-4'>
@@ -96,13 +97,13 @@ const ClassOrganization = () => {
                             <p className='font-normal transform ease-in-out duration-300 transition-all '>Back</p>
                         </button>
                         <button onClick={() => nextPage()} className='w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] group'>
-                            <p className='font-normal transform ease-in-out duration-300 transition-all group-hover:mr-8 '>Step 3: Research Guide</p>
+                            <p className='font-normal transform ease-in-out duration-300 transition-all group-hover:mr-8 flex items-center'>Step 3<span className='hidden lg:block'>: Research Guide</span></p>
                             <FontAwesomeIcon icon={faArrowRight} className='w-[12px] h-[12px] text-[var(--color-secondary)]' />
                         </button>
                     </div>
                 </div>
             </section>
-        </>
+        </main>
     )
 }
 

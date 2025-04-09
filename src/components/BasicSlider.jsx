@@ -51,7 +51,7 @@ const BasicSlider = ({ sliderData }) => {
 
     return (
         <div
-            className="relative w-full h-[520px] bg-[var(--color-non-primary)] rounded-3xl overflow-hidden border"
+            className="relative w-full h-[120px] lg:h-[520px] bg-[var(--color-non-primary)] rounded-3xl overflow-hidden border"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
@@ -59,9 +59,8 @@ const BasicSlider = ({ sliderData }) => {
             {sliderData.map((slide, index) => (
                 <div
                     key={slide.id}
-                    className={`absolute w-full inset-0 transition-transform duration-500 ${
-                        index === currentIndex ? 'translate-x-0' : index < currentIndex ? '-translate-x-full' : 'translate-x-full'
-                    }`}
+                    className={`absolute w-full inset-0 transition-transform duration-500 ${index === currentIndex ? 'translate-x-0' : index < currentIndex ? '-translate-x-full' : 'translate-x-full'
+                        }`}
                 >
                     <img
                         src={`${process.env.REACT_APP_API_IMGURL}${slide.url}`}
@@ -88,11 +87,10 @@ const BasicSlider = ({ sliderData }) => {
                 {sliderData.map((_, index) => (
                     <span
                         key={index}
-                        className={`w-2 h-2 rounded-full ${
-                            index === currentIndex
-                                ? 'bg-[var(--color-tertiary)]'
-                                : 'bg-[var(--color-non-primary)]'
-                        }`}
+                        className={`w-2 h-2 rounded-full ${index === currentIndex
+                            ? 'bg-[var(--color-tertiary)]'
+                            : 'bg-[var(--color-non-primary)]'
+                            }`}
                     ></span>
                 ))}
             </div>

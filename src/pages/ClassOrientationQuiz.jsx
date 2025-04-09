@@ -1,33 +1,36 @@
-import React, { useEffect, useState } from 'react';
+/* React Hooks */
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
 
-//USER CONTEXT
+/* Context */
 import { useUser } from '../context/UserContext';
 
-//COMPONENTS
+/* Components */
 import BasicLoading from '../components/BasicLoading';
 import Alert from '../utils/Alert';
 
-//ASSET
+/* Font Libraries */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBullseye, faCirclePlay, faStar, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
+/* Assets */
 import Happy from '../assets/happy.png';
 import Background from '../assets/score.gif';
 
 const ClassOrientationQuiz = () => {
-    // Parameters Page
+    /* Parameters Page */
     const { slug, id } = useParams();
 
-    // Navigation
+    /* Navigation */
     const navigate = useNavigate();
 
-    // User Context
+    /* User Context */
     const { username, courseTopic, setTopicSlug, isLoading, postProgressQuiz } = useUser();
 
-    // Answer State
+    /* Answer State */
     const [answers, setAnswers] = useState({});
 
-    // Already Answer State
+    /* Already Answer State */
     const [savedAnswers, setSavedAnswers] = useState({});
     const [score, setScore] = useState(0);
     const [scoreDescription, setScoreDescription] = useState("");
@@ -35,12 +38,12 @@ const ClassOrientationQuiz = () => {
 
     const [isError, setIsError] = useState(false);
 
-    // Effect to Trigger Course Topic
+    /* Effect to Trigger Course Topic */
     useEffect(() => {
         setTopicSlug(slug);
     }, []);
 
-    // Effect to Trigger Answered
+    /* Effect to Trigger Answered */
     useEffect(() => {
         if (courseTopic && courseTopic.topicActivity?.answers) {
             setSavedAnswers(courseTopic.topicActivity?.answers);
@@ -60,7 +63,7 @@ const ClassOrientationQuiz = () => {
         }
     }, [courseTopic]);
 
-    // Function Route Page
+    /* Function Route Page */
     const nextPage = () => {
         navigate(`/class/${id}/organization/${courseTopic?.nextTopic?.slug}`)
     }
@@ -68,7 +71,7 @@ const ClassOrientationQuiz = () => {
         navigate(`/class/${id}/orientation/${courseTopic?.prevTopic?.slug}`)
     }
 
-    // Function Handle Quiz Answer Select
+    /* Function Handle Quiz Answer Select */
     const handleAnswerSelect = (questionId, selectedOption) => {
         setAnswers(prev => ({
             ...prev,
@@ -76,7 +79,7 @@ const ClassOrientationQuiz = () => {
         }));
     };
 
-    // Function Handle Quiz Submit
+    /* Function Handle Quiz Submit */
     const handleSubmit = () => {
         const unansweredQuestions = question.filter((q) => !answers[q.id]);
 
@@ -99,7 +102,7 @@ const ClassOrientationQuiz = () => {
     }
 
     return (
-        <main>
+        <main className='my-6 lg:my-0'>
             {
                 isError && <Alert isError={isError} setIsError={setIsError} />
             }
@@ -197,8 +200,8 @@ const ClassOrientationQuiz = () => {
                                                             <img className='w-full h-full bg-cover' src={`${process.env.REACT_APP_API_IMGURL}${q.image.url}`} alt='Quiz-Image' />
                                                         </div>
                                                     }
-                                                    <div className='w-full h-full flex flex-col gap-4 p-6'>
-                                                        <h3 className='w-full text-[36px] text-left font-semibold'>{q.question}</h3>
+                                                    <div className='w-full h-full flex flex-col gap-4 lg:p-6'>
+                                                        <h3 className='w-full text-[24px] lg:text-[36px] text-left font-semibold'>{q.question}</h3>
                                                         {
                                                             option.map((i, index) => {
                                                                 return (
@@ -231,10 +234,10 @@ const ClassOrientationQuiz = () => {
             </section>
 
             {showScore &&
-                <section className='w-full h-fit flex flex-col justify-center items-center p-6'>
+                <section className='w-full h-fit flex flex-col justify-center items-center p-0 lg:p-6'>
                     <div className='w-full h-full flex flex-col justify-between text-[var(--color-secondary)] rounded-3xl p-6 gap-12'>
                         <div className='w-full h-[80vh] relative flex flex-col gap-4 justify-center items-center text-[var(--color-primary)] rounded-3xl p-6 overflow-hidden'>
-                            <img src={Background} className="absolute w-full h-full blur-lg object-cover" alt="" />
+                            <img src={Background} className="absolute w-full h-full blur-sm lg:blur-md object-cover" alt="" />
                             <img src={Happy} alt='' className='w-[10%] z-20' />
                             <div className='w-fit h-fit flex flex-row items-center gap-2 px-6 py-2 z-20 border border-[var(--color-primary)] rounded-full'>
                                 <p className='w-fit text-sm text-center leading-none font-semibold'>Congratulations</p>
@@ -248,7 +251,7 @@ const ClassOrientationQuiz = () => {
                                 <p className='font-normal transform ease-in-out duration-300 transition-all'>Back</p>
                             </button>
                             <button onClick={() => nextPage()} className='w-fit h-auto flex items-center justify-center gap-2 bg-[var(--color-tertiary)] text-[var(--color-secondary)] rounded-full pt-[8px] pb-[10px] px-[20px] group'>
-                                <p className='font-normal transform ease-in-out duration-300 transition-all group-hover:mr-8 '>Step 2: Organisasi Peserta Didik</p>
+                                <p className='font-normal transform ease-in-out duration-300 transition-all group-hover:mr-8 flex items-center'>Step 2<span className='hidden lg:block'>: Organisasi Peserta Didik</span></p>
                                 <FontAwesomeIcon icon={faArrowRight} className='w-[12px] h-[12px] text-[var(--color-secondary)]' />
                             </button>
                         </div>

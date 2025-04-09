@@ -69,31 +69,31 @@ const MainNavigation = () => {
                         </Link>
                     </li>
                     <li className='block lg:hidden'>
-                        <Link smooth to='/main#dashboard' scroll={scrollOffset} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 hover:bg-[var(--color-shadow)] group'>
+                        <Link smooth to='/main#dashboard' scroll={scrollOffset} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 lg:hover:bg-[var(--color-shadow)] group'>
                             <FontAwesomeIcon icon={faHome} className='w-[24px] h-[24px]'></FontAwesomeIcon>
                             <p className='hidden text-xs ease-in-out duration-300 group-hover:block'>Dashboard</p>
                         </Link>
                     </li>
-                    <li  className='hidden lg:block'>
-                        <Link smooth to='/main#test' scroll={scrollOffset} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 hover:bg-[var(--color-shadow)] group'>
+                    <li className='hidden lg:block'>
+                        <Link smooth to='/main#test' scroll={scrollOffset} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 lg:hover:bg-[var(--color-shadow)] group'>
                             <FontAwesomeIcon icon={faPaperPlane} className='w-[24px] h-[24px]'></FontAwesomeIcon>
                             <p className='hidden text-xs ease-in-out duration-300 group-hover:block'>Test</p>
                         </Link>
                     </li>
                     <li>
-                        <Link smooth to='/main#class' scroll={scrollOffset} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 hover:bg-[var(--color-shadow)] group'>
+                        <Link smooth to='/main#class' scroll={scrollOffset} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 lg:hover:bg-[var(--color-shadow)] group'>
                             <FontAwesomeIcon icon={faBook} className='w-[24px] h-[24px]'></FontAwesomeIcon>
                             <p className='hidden text-xs ease-in-out duration-300 group-hover:block'>Class</p>
                         </Link>
                     </li>
-                    <li>
-                        <Link smooth to='/main#quiz' scroll={scrollOffset} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 hover:bg-[var(--color-shadow)] group'>
+                    <li className='hidden lg:block'>
+                        <Link smooth to='/main#quiz' scroll={scrollOffset} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 lg:hover:bg-[var(--color-shadow)] group'>
                             <FontAwesomeIcon icon={faClock} className='w-[24px] h-[24px]'></FontAwesomeIcon>
                             <p className='hidden text-xs ease-in-out duration-300 group-hover:block'>Quiz Score</p>
                         </Link>
                     </li>
                     <li className='hidden lg:block'>
-                        <Link smooth to='/main#help' scroll={scrollOffset} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 hover:bg-[var(--color-shadow)] group'>
+                        <Link smooth to='/main#help' scroll={scrollOffset} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 lg:hover:bg-[var(--color-shadow)] group'>
                             <FontAwesomeIcon icon={faCircleQuestion} className='w-[24px] h-[24px]'></FontAwesomeIcon>
                             <p className='hidden text-xs ease-in-out duration-300 group-hover:block'>Help</p>
                         </Link>
@@ -101,7 +101,7 @@ const MainNavigation = () => {
                 </ul>
                 <ul>
                     <li>
-                        <button onClick={() => handleSignOut()} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 hover:bg-[var(--color-shadow)] group'>
+                        <button onClick={() => handleSignOut()} className='flex flex-col items-center justify-center gap-2 w-24 h-24 text-[var(--color-primary)] rounded-full ease-in-out duration-300 lg:hover:bg-[var(--color-shadow)] group'>
                             <FontAwesomeIcon icon={faSignOut} className='w-[24px] h-[24px]'></FontAwesomeIcon>
                             <p className='hidden text-xs ease-in-out duration-300 group-hover:block'>Sign Out</p>
                         </button>

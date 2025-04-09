@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+/* React Hooks */
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
-//USER CONTEXT
+/* Context */
 import { useUser } from '../context/UserContext';
 
-//ASSETS
+/* Assets */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faBolt, faRocket } from '@fortawesome/free-solid-svg-icons';
 import Character from '../assets/chara.png';
@@ -13,28 +14,28 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 const ClassIntro = () => {
-    // Parameters
+    /* Parameters */
     const { id } = useParams();
 
-    // Navigation
+    /* Navigation */
     const navigate = useNavigate();
 
-    // User Context
+    /* User Context */
     const { courseDetails, image, isLoading, courseId, setCourseId, setTopicSlug, topicSlug } = useUser();
 
-    // Use Effect Trigger Fetch Course Details
+    /* Use Effect Trigger Fetch Course Details */
     useEffect(() => {
         setCourseId(id);
     }, []);
 
-    // Use Effect Trigger Update Course Slug
+    /* Use Effect Trigger Update Course Slug */
     useEffect(() => {
         const topics = courseDetails?.attributes?.topics?.data;
         const result = topics?.find(topic => topic.attributes?.order === 1);
         setTopicSlug(result?.attributes?.slug);
     }, [courseDetails])
 
-    //Function Next Page
+    /*  Function Next Page */
     const nextPage = () => {
         navigate(`/class/${courseId}/orientation/${topicSlug}`);
     }
@@ -46,8 +47,8 @@ const ClassIntro = () => {
     }
 
     return (
-        <main className='my-12 lg:my-0'>
-            <section className="w-full h-screen grid grid-cols-1 lg:grid-cols-2 gap-6 pt-[72px] p-6 my-12">
+        <main className='my-6 lg:my-0'>
+            <section className="w-full h-fit grid grid-cols-1 lg:grid-cols-2 gap-6 pt-[72px] p-6 my-12">
                 <div className='w-full h-full flex flex-col justify-between items-start gap-12 lg:p-6'>
                     <div className="w-full h-full bg-[var(--color-accent)] rounded-3xl overflow-hidden">
                         <img
